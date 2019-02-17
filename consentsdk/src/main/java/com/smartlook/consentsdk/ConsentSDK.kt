@@ -19,16 +19,50 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
 
     private val sharedPreferences = SharedPreferencesHelper(this)
 
-    fun loadConsentResult(key: String) = sharedPreferences.loadBoolean(key)
+    /**
+     * Load consent granting result from preferences.
+     *
+     * @param consentKey Unique key identifying consent.
+     * @return TRUE if consent was granted, FALSE if it was refused and null if not defined.
+     */
+    fun loadConsentResult(consentKey: String): Boolean? {
+        return if (isConsentResultStored()) {
+            sharedPreferences.loadBoolean(consentKey)
+        } else {
+            null
+        }
+    }
 
-    fun saveConsentResult(key: String, grantResult: Boolean) = sharedPreferences.saveBoolean(key, grantResult)
+    /**
+     * Save consent granting result to preferences.
+     *
+     * @param consentKey Unique key identifying consent.
+     * @param grantResult TRUE if consent was granted, FALSE if it was refused.
+     */
+    fun saveConsentResult(consentKey: String, grantResult: Boolean) = sharedPreferences.saveBoolean(consentKey, grantResult)
 
+    /**
+     * Check if user has seen and successfully filled consent form.
+     *
+     * @return TRUE if user has seen and successfully filled consent form.
+     */
     fun isConsentResultStored() = sharedPreferences.loadBoolean(CONSENT_RESULT_STORED)
 
+    /**
+     * Store information that user filled consent form successfully.
+     */
     fun setConsentResultStored() = sharedPreferences.saveBoolean(CONSENT_RESULT_STORED, true)
 
+    /**
+     * Display consent form on Dialog. If you want to correctly persist on orientation change use
+     * showConsentFormDialogFragment().
+     *
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param consentResultListener Callback called on successful fill of consent form (@see ConsentResultListener).
+     */
+    //todo there is possible need to pass activity context :(
     fun showConsentFormDialog(consentFormData: ConsentFormData, consentResultListener: ConsentResultListener) =
-            ConsentDialog(this, consentFormData, consentResultListener).show()
+            ConsentDialog(applicationContext, consentFormData, consentResultListener).show()
 
 
     fun showConsentFormDialogFragment(activity: FragmentActivity, consentFormData: ConsentFormData) {

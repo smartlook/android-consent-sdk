@@ -88,14 +88,10 @@ class ConsentBase(
     }
 
     private fun obtainGrantResults(consentFormItems: Array<ConsentFormItem>) =
-        consentFormItems.map {
-            consentApi.loadConsentResult(UtilsHelper.stringFromResourceOrString(this, it.key))
-        }.toBooleanArray()
+        consentFormItems.map { consentApi.loadConsentResult(it.consentKey) ?: false }.toBooleanArray()
 
     private fun obtainConsentKeys(consentFormItems: Array<ConsentFormItem>) =
-        consentFormItems.map {
-            UtilsHelper.stringFromResourceOrString(this, it.key)
-        }.toTypedArray()
+        consentFormItems.map { it.consentKey }.toTypedArray()
 
     private fun createConsentItemListener() = object : ConsentItemListener {
         override fun onConsentChange(itemIndex: Int, consent: Boolean) {
