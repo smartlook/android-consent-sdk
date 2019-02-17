@@ -80,6 +80,8 @@ class ConsentBase(
     }
 
     private fun storeGrantResults() {
+        consentApi.setConsentResultStored()
+
         consentKeys.forEachIndexed { index, key ->
             consentApi.saveConsentResult(key, grantResults[index])
         }
