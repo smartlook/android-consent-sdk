@@ -1,0 +1,9 @@
+<manifest package="com.smartlook.consentsdk"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+                android:name="com.smartlook.consentsdk.ui.consentFormData.activity.ConsentActivity"
+                android:theme="@style/Base.Theme.AppCompat.Light" />
+    </application>
+</manifest>
