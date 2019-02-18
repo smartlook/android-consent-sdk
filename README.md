@@ -35,15 +35,74 @@ This object is gonna be used for all interaction with ConsentSDK.
 Before you can display consent form you need to prepare consent form data.
 
 ```
-    private fun prepareConsentFormData(): ConsentFormData {
-        return ConsentFormData(
-            titleText = getString(R.string.consent_form_title),
-            descriptionText = getString(R.string.consent_form_description),
-            confirmButtonText = getString(R.string.consent_form_confirm_button_text),
-            consentFormItems = prepareConsentFormItems())
-    }
+companion object {
+    const val CONSENT_1_KEY = "consent_1_key"
+    const val CONSENT_2_KEY = "consent_2_key"
+}
+
+...
+
+val consentFormItems = arrayOf(
+    ConsentFormItem(
+        consentKey = CONSENT_1_KEY,
+        required = true,
+        description = getString(R.string.consent_1_description),
+        link = null
+    ),
+    ConsentFormItem(
+        consentKey = CONSENT_2_KEY,
+        required = false,
+        description = getString(R.string.consent_2_description),
+        link = getString(R.string.consent_2_link)
+    )
+)
+
+val consentFormData = ConsentFormData(
+    titleText = getString(R.string.consent_form_title),
+    descriptionText = getString(R.string.consent_form_description),
+    confirmButtonText = getString(R.string.consent_form_confirm_button_text),
+    consentFormItems = consentFormItems)
 
 ```
 
- create array of consentFormItems
+Array `consentFormItems` represents consents we want user to grant us. Every item needs have:
+ - unique `consentKey` that represents it and can be used to obtain grant result for this consent.
+ - `required` flag. If this flag is set to `true` user cannot successfully finish consent form without granting this consent.
+ - `descriptionText` informing user about the consent.
+ - `link` (optional) that lest user open web page (URL) with more info.
+ 
+ Object `consentFormData` provides all needed data for displaying consent form.
+
+## Showing consent form on Dialog
+Most simple and straight-forward way of displaying consent form is on `Dialog`. It has one __drawback__, this way we __cannot__ properly persist user data on orientation change. Use this if you have locked screen orientation.
+
+```
+consentSDK.showConsentFormDialog(consentFormData, object : ConsentResultListener {
+    override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+        // consent form result here
+    }
+})
+```
+
+## Showing consent form on DialogFragment
+By using `DialogFragment` SDK can properly handle orientation changes.
+
+```
+consentSDK.showConsentFormDialogFragment(<activity>/<fragment>, consentFormData)
+```
+
+First parameter of `showConsentFormDialogFragment` accepts `Activity` or `Fragment` reference so you can call it from both.
+You calling `Activity` or `Fragment` __must__ implement ConsentResultListener.
+
+```
+class SampleActivity : AppCompatActivity(), ConsentResultListener {
+
+...
+
+  override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+      // consent form result here
+  }
+}
+```
+
 
