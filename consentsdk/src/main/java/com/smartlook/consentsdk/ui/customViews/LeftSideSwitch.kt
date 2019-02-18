@@ -13,12 +13,16 @@ import kotlinx.android.synthetic.main.left_side_switch.view.*
 
 class LeftSideSwitch : LinearLayout {
 
+    constructor(context: Context): super(context) {
+        initialize()
+    }
+
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        initialize(attributeSet)
+        initialize()
     }
 
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(context, attributeSet, defStyleAttr) {
-        initialize(attributeSet)
+        initialize()
     }
 
     var text: String = ""
@@ -42,22 +46,9 @@ class LeftSideSwitch : LinearLayout {
         this.listener = onCheckedChangeListener
     }
 
-    private fun initialize(attributeSet: AttributeSet) {
+    private fun initialize() {
         layoutView = LayoutInflater.from(context).inflate(R.layout.left_side_switch, this, true)
-
-        setAttributes(attributeSet)
         handleSwitchClick()
-    }
-
-    private fun setAttributes(attributeSet: AttributeSet) {
-        context.theme.obtainStyledAttributes(attributeSet, R.styleable.LeftSideSwitch, 0, 0).apply {
-            try {
-                UtilsHelper.setSwitchColor(left_side_switch_switch, getColor(R.styleable.LeftSideSwitch_switchColor, Color.GREEN))
-                left_side_switch_text.setTextColor(getInteger(R.styleable.LeftSideSwitch_switchTextColor, Color.GRAY))
-            } finally {
-                recycle()
-            }
-        }
     }
 
     private fun handleSwitchClick() {
