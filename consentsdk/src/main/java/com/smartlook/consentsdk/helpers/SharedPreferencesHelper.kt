@@ -3,11 +3,15 @@ package com.smartlook.consentsdk.helpers
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 
 class SharedPreferencesHelper(context: Context) : ContextWrapper(context.applicationContext) {
 
-    private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    companion object {
+        private const val CONSENT_SDI_SHARED_PREFERENCES = "com.smartlook.consentsdk.sharedprefrences"
+    }
+
+    private val sharedPreferences: SharedPreferences
+            = getSharedPreferences(CONSENT_SDI_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
     fun saveBoolean(key: String, state: Boolean) {
         sharedPreferences.edit().putBoolean(key, state).apply()
