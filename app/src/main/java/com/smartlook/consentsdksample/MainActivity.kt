@@ -19,7 +19,37 @@ class MainActivity : AppCompatActivity(), ConsentResultListener {
 
         consentSDK = ConsentSDK(this)
 
-        val consentItems = arrayOf(
+        val consentFormData = sampleConsentFormData()
+
+        show_dialog.setOnClickListener {
+            consentSDK.showConsentFormDialogFragment(this, consentFormData)
+        }
+
+        show_dialog_fragment.setOnClickListener {
+            consentSDK.showConsentFormDialogFragment(this, consentFormData)
+        }
+
+        start_activity.setOnClickListener {
+            consentSDK.startConsentFormActivity(this, consentFormData, 10000)
+        }
+    }
+
+    override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+        Toast.makeText(this, "Result obtained", Toast.LENGTH_LONG).show()
+    }
+
+    private fun sampleConsentFormData(): ConsentFormData {
+        val consentItems = sampleConsentFormItem()
+
+        return ConsentFormData(
+            titleText = "This is a ConsentFormData dialog",
+            descriptionText = "Curabitur sagittis hendrerit ante. Aenean fermentum risus id tortor. Integer in sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Aliquam ornare wisi eu metus. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam.",
+            confirmButtonText = "This is my will",
+            consentFormItems = consentItems)
+    }
+
+    private fun sampleConsentFormItem(): Array<ConsentFormItem> {
+        return arrayOf(
             ConsentFormItem(
                 "AGE_CONSENT",
                 true,
@@ -33,19 +63,5 @@ class MainActivity : AppCompatActivity(), ConsentResultListener {
                 "https://www.nplix.com/kotlin-parcelable-array-objects/"
             )
         )
-
-        val consent = ConsentFormData(
-            titleText = "This is a ConsentFormData dialog",
-            descriptionText = "Curabitur sagittis hendrerit ante. Aenean fermentum risus id tortor. Integer in sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Aliquam ornare wisi eu metus. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam.",
-            confirmButtonText = "This is my will",
-            consentFormItems = consentItems)
-
-        dialog_fragment.setOnClickListener {
-            consentSDK.showConsentFormDialogFragment(this, consent)
-        }
-    }
-
-    override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
-        Toast.makeText(this, "Result obtained", Toast.LENGTH_LONG).show()
     }
 }

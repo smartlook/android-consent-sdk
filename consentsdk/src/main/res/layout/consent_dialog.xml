@@ -7,6 +7,7 @@
     android:layout_width="match_parent">
 
     <LinearLayout
+        android:background="@color/consent_form_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,7 +17,7 @@
             android:id="@+id/consent_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/consent_dialog_title_text_color"
+            android:textColor="@color/consent_form_title_text_color"
             android:textSize="@dimen/consent_dialog_title_text_size"
             tools:text="Consent dialog title text"/>
 
@@ -25,6 +26,7 @@
             android:layout_height="@dimen/consent_dialog_vertical_space"/>
 
         <TextView
+            android:textColor="@color/consent_form_text_color"
             android:id="@+id/consent_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -44,6 +46,8 @@
             android:layout_height="@dimen/consent_dialog_vertical_space"/>
 
         <Button
+            android:textColor="@color/consent_form_button_text_color"
+            android:backgroundTint="@color/consent_form_button_color"
             android:id="@+id/consent_confirm_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"

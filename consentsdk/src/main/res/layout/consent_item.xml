@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:minHeight="@dimen/consent_item_minimal_height"
-    android:orientation="horizontal"
-    android:padding="@dimen/consent_item_padding">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:gravity="center_vertical"
+              android:minHeight="@dimen/consent_item_minimal_height"
+              android:orientation="horizontal"
+              android:padding="@dimen/consent_item_padding">
 
     <com.smartlook.consentsdk.ui.customViews.LeftSideSwitch
         android:id="@+id/consent_item_switch"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:switchTextColor="@color/consent_form_text_color"
+        app:switchColor="@color/consent_form_switch_color"/>
 
     <Space
         android:layout_width="@dimen/consent_item_horizontal_space"
@@ -22,6 +25,7 @@
         android:layout_width="@dimen/consent_item_link_icon_size"
         android:layout_height="@dimen/consent_item_link_icon_size"
         android:padding="@dimen/consent_item_link_icon_padding"
-        android:src="@drawable/ic_link" />
+        android:tint="@color/consent_form_button_color"
+        android:src="@drawable/ic_info_link" />
 
 </LinearLayout>

@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="consent_dialog_title_text_color">@android:color/black</color>
+
+    <color name="consent_form_background">@android:color/white</color>
+    <color name="consent_form_title_text_color">@android:color/black</color>
+    <color name="consent_form_text_color">#5C5C5C</color>
+    <color name="consent_form_button_color">#1179F4</color>
+    <color name="consent_form_button_text_color">@android:color/white</color>
+    <color name="consent_form_switch_color">#1179F4</color>
+
 </resources>

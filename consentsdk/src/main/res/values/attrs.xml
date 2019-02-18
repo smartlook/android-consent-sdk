@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LeftSideSwitch">
+        <attr name="switchTextColor" format="color" />
+        <attr name="switchColor" format="color" />
+    </declare-styleable>
+
+</resources>

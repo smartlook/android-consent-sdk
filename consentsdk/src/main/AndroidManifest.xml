@@ -3,7 +3,7 @@
 
     <application>
         <activity
-                android:name="com.smartlook.consentsdk.ui.consentFormData.activity.ConsentActivity"
+                android:name="com.smartlook.consentsdk.ui.consent.activity.ConsentActivity"
                 android:theme="@style/Base.Theme.AppCompat.Light" />
     </application>
 </manifest>
