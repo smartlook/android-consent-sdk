@@ -11,7 +11,6 @@ import com.smartlook.consentsdk.listeners.ConsentResultListener
 import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 
-//todo make all text Spannable so they can be formated
 class ConsentDialog(context: Context,
                     private val consentFormData: ConsentFormData,
                     private val consentResultListener: ConsentResultListener) : Dialog(context) {
@@ -38,9 +37,9 @@ class ConsentDialog(context: Context,
 
     private fun createResultListener(): ConsentBase.ResultListener {
         return object : ConsentBase.ResultListener {
-            override fun onResult(consentKeys: Array<String>, grantResults: BooleanArray) {
+            override fun onResult(consentResults: HashMap<String, Boolean>) {
                 dismiss()
-                consentResultListener.onConsentResult(consentKeys, grantResults)
+                consentResultListener.onConsentResult(consentResults)
             }
         }
     }

@@ -9,19 +9,17 @@ import com.smartlook.consentsdk.ConsentSDK
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
-import com.smartlook.consentsdk.helpers.UtilsHelper
 import com.smartlook.consentsdk.listeners.ConsentItemListener
+
 
 class ConsentBase(
     private val consentFormData: ConsentFormData,
     rootView: View,
     private val resultListener: ResultListener,
-    grantResults: BooleanArray? = null) : ContextWrapper(rootView.context) {
+    consentResults: HashMap<String, Boolean>? = null) : ContextWrapper(rootView.context) {
 
     private val consentApi = ConsentSDK(this)
-
-    var consentKeys: Array<String>
-    var grantResults: BooleanArray
+    var consentResults: HashMap<String, Boolean>
 
     // We are doing it oldschool because it works for both dialog and activity
     private val tvTitle = rootView.findViewById<TextView>(R.id.consent_title)
@@ -30,8 +28,7 @@ class ConsentBase(
     private val bConfirm = rootView.findViewById<Button>(R.id.consent_confirm_button)
 
     init {
-        this.consentKeys = obtainConsentKeys(consentFormData.consentFormItems)
-        this.grantResults = grantResults ?: obtainGrantResults(consentFormData.consentFormItems)
+        this.consentResults = consentResults ?: obtainConsentResults(consentFormData.consentFormItems)
     }
 
     fun displayConsent() {
@@ -46,7 +43,7 @@ class ConsentBase(
         var enable = true
 
         consentFormData.consentFormItems.forEachIndexed { index, item ->
-            if (item.required && !grantResults[index]) {
+            if (item.required && consentResults[keyOnIndex(index)] != true) {
                 enable = false
             }
         }
@@ -56,9 +53,9 @@ class ConsentBase(
 
     private fun displayTexts() {
         with(consentFormData) {
-            tvTitle.text = UtilsHelper.stringFromResourceOrString(this@ConsentBase, titleText)
-            tvDescription.text = UtilsHelper.stringFromResourceOrString(this@ConsentBase, descriptionText)
-            bConfirm.text = UtilsHelper.stringFromResourceOrString(this@ConsentBase, confirmButtonText)
+            tvTitle.text = titleText
+            tvDescription.text = descriptionText
+            bConfirm.text = confirmButtonText
         }
     }
 
@@ -66,7 +63,7 @@ class ConsentBase(
     private fun displayConsentItems() {
         consentFormData.consentFormItems.forEachIndexed { index, consentItem ->
             lvConsentItemsRoot.addView(ConsentItemView(this).apply {
-                setData(grantResults[index], consentItem)
+                setData(consentResults[keyOnIndex(index)] ?: false, consentItem)
                 registerListener(index, createConsentItemListener())
             })
         }
@@ -75,33 +72,36 @@ class ConsentBase(
     private fun handleConfirmButton() {
         bConfirm.setOnClickListener {
             storeGrantResults()
-            resultListener.onResult(consentKeys, grantResults)
+            resultListener.onResult(consentResults)
         }
     }
 
     private fun storeGrantResults() {
         consentApi.setConsentResultStored()
 
-        consentKeys.forEachIndexed { index, key ->
-            consentApi.saveConsentResult(key, grantResults[index])
+        for (entry in consentResults.entries) {
+            consentApi.saveConsentResult(entry.key, entry.value)
         }
     }
 
-    private fun obtainGrantResults(consentFormItems: Array<ConsentFormItem>) =
-        consentFormItems.map { consentApi.loadConsentResult(it.consentKey) ?: false }.toBooleanArray()
-
-    private fun obtainConsentKeys(consentFormItems: Array<ConsentFormItem>) =
-        consentFormItems.map { it.consentKey }.toTypedArray()
+    private fun obtainConsentResults(consentFormItems: Array<ConsentFormItem>) =
+        hashMapOf<String, Boolean>().apply {
+            consentFormItems.forEach {
+                put(it.consentKey, consentApi.loadConsentResult(it.consentKey) ?: false)
+            }
+        }
 
     private fun createConsentItemListener() = object : ConsentItemListener {
         override fun onConsentChange(itemIndex: Int, consent: Boolean) {
-            grantResults[itemIndex] = consent
+            consentResults[keyOnIndex(itemIndex)] = consent
             updateConfirmButton()
         }
     }
 
+    private fun keyOnIndex(itemIndex: Int) = consentFormData.consentFormItems[itemIndex].consentKey
+
     interface ResultListener {
-        fun onResult(consentKeys: Array<String>, grantResults: BooleanArray)
+        fun onResult(consentResults: HashMap<String, Boolean>)
     }
 
 }

@@ -17,6 +17,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
         private const val CONSENT_RESULT_STORED = "consent_result_stored"
     }
 
+    //todo use private shared preffs
     private val sharedPreferences = SharedPreferencesHelper(this)
 
     /**

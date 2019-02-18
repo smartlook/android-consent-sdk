@@ -26,7 +26,7 @@ class ConsentDialogFragment : DialogFragment() {
         val consent = ConsentFormData.constructFromBundle(arguments) ?: throw InvalidParameterException()
 
         return ConsentDialog(context!!, consent, object : ConsentResultListener {
-            override fun onConsentResult(consentKeys: Array<String>, grantResults: BooleanArray) {
+            override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
                 //todo return result here
             }
         })

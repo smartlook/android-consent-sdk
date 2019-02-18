@@ -13,8 +13,7 @@ import java.security.InvalidParameterException
 class ConsentActivity : AppCompatActivity() {
 
     companion object {
-        const val CONSENT_KEYS_EXTRA = "CONSENT_KEYS_EXTRA"
-        const val GRANT_RESULTS_EXTRA = "GRANT_RESULTS_EXTRA"
+        const val CONSENT_RESULTS_EXTRA = "CONSENT_RESULTS_EXTRA"
 
         fun start(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) {
             activity.startActivityForResult(
@@ -31,7 +30,7 @@ class ConsentActivity : AppCompatActivity() {
         setContentView(R.layout.consent_activity)
 
         consentFormData = ConsentFormData.constructFromBundle(intent.extras) ?: throw InvalidParameterException()
-        consentBase = ConsentBase(consentFormData, root, createResultListener(), restoreGrantResults(savedInstanceState))
+        consentBase = ConsentBase(consentFormData, root, createResultListener(), restoreConsentResults(savedInstanceState))
         consentBase.displayConsent()
     }
 
@@ -42,23 +41,22 @@ class ConsentActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBooleanArray(GRANT_RESULTS_EXTRA, consentBase.grantResults)
+        outState.putSerializable(CONSENT_RESULTS_EXTRA, consentBase.consentResults)
     }
 
-    private fun restoreGrantResults(savedInstanceState: Bundle?): BooleanArray? {
-        return if (savedInstanceState == null || !savedInstanceState.containsKey(GRANT_RESULTS_EXTRA)) {
+    private fun restoreConsentResults(savedInstanceState: Bundle?): HashMap<String, Boolean>? {
+        return if (savedInstanceState == null || !savedInstanceState.containsKey(CONSENT_RESULTS_EXTRA)) {
             null
         } else {
-            savedInstanceState.getBooleanArray(GRANT_RESULTS_EXTRA)
+            savedInstanceState.getSerializable(CONSENT_RESULTS_EXTRA) as HashMap<String, Boolean>
         }
     }
 
     private fun createResultListener(): ConsentBase.ResultListener {
         return object : ConsentBase.ResultListener {
-            override fun onResult(consentKeys: Array<String>, grantResults: BooleanArray) {
+            override fun onResult(consentResults: HashMap<String, Boolean>) {
                 setResult(Activity.RESULT_OK, Intent().apply {
-                    putExtra(CONSENT_KEYS_EXTRA, consentKeys)
-                    putExtra(GRANT_RESULTS_EXTRA, consentKeys)
+                    putExtra(CONSENT_RESULTS_EXTRA, consentResults)
                 })
                 finish()
             }

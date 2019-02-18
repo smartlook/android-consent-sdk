@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import java.io.InvalidClassException
 
 object UtilsHelper {
 
@@ -13,14 +12,6 @@ object UtilsHelper {
             View.GONE
         } else {
             View.VISIBLE
-        }
-    }
-
-    fun stringFromResourceOrString(context: Context, resourceOrString: Any): String {
-        return when (resourceOrString) {
-            is String -> resourceOrString
-            is Int -> context.getString(resourceOrString)
-            else -> throw InvalidClassException("stringFromStringResOrString(): resourceOrString must be String or Int!")
         }
     }
 

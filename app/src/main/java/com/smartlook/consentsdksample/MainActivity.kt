@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
             confirmButtonText = "This is my will",
             consentFormItems = consentItems)
 
-        consentSDK.showConsentDialog(consent, object : ConsentResultListener {
-            override fun onConsentResult(consentKeys: Array<String>, grantResults: BooleanArray) {
+        consentSDK.showConsentFormDialog(consent, object : ConsentResultListener {
+            override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
 
             }
         })
