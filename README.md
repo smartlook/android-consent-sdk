@@ -73,7 +73,7 @@ Array `consentFormItems` represents consents we want user to grant us. Every ite
  
  Object `consentFormData` provides all needed data for displaying consent form.
 
-## Showing consent form on Dialog
+### Showing consent form on `Dialog`
 Most simple and straight-forward way of displaying consent form is on `Dialog`. It has one __drawback__, this way we __cannot__ properly persist user data on orientation change. Use this if you have locked screen orientation.
 
 ```
@@ -84,7 +84,7 @@ consentSDK.showConsentFormDialog(consentFormData, object : ConsentResultListener
 })
 ```
 
-## Showing consent form on DialogFragment
+### Showing consent form on `DialogFragment`
 By using `DialogFragment` SDK can properly handle orientation changes.
 
 ```
@@ -105,7 +105,7 @@ class SampleActivity : AppCompatActivity(), ConsentResultListener {
 }
 ```
 
-## Starting consent form Activity
+### Starting consent form `Activity`
 
 ```
 class SampleActivity : AppCompatActivity() {
@@ -132,5 +132,9 @@ class SampleActivity : AppCompatActivity() {
 
 Consent form `Activity` is started "for a result" so to get a result you need to implement `onActivityResult` method in your `Activity`. 
 
+### Creating conset form `Fragment`
+todo
 
+## Styling
+todo
 
