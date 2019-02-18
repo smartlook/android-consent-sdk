@@ -32,13 +32,12 @@ class ConsentItemView : LinearLayout {
     }
 
     fun setData(grantResult: Boolean, consentFormItem: ConsentFormItem) {
-        consent_item_switch.text = UtilsHelper.stringFromResourceOrString(context, consentFormItem.text)
+        consent_item_switch.text = consentFormItem.text
         consent_item_switch.isChecked = grantResult
 
        UtilsHelper.hideViewIfNull(consentFormItem.link, consent_item_link)
         consent_item_link.setOnClickListener {
-            val link = UtilsHelper.stringFromResourceOrString(context, consentFormItem.link ?: return@setOnClickListener)
-            UtilsHelper.openLink(context, link)
+            UtilsHelper.openLink(context, consentFormItem.link ?: return@setOnClickListener)
         }
     }
 

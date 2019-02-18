@@ -63,6 +63,10 @@ class ConsentBase(
     private fun displayConsentItems() {
         consentFormData.consentFormItems.forEachIndexed { index, consentItem ->
             lvConsentItemsRoot.addView(ConsentItemView(this).apply {
+
+                val keyOnIndex = keyOnIndex(index)
+                val consentResult = consentResults[keyOnIndex(index)] ?: false
+
                 setData(consentResults[keyOnIndex(index)] ?: false, consentItem)
                 registerListener(index, createConsentItemListener())
             })

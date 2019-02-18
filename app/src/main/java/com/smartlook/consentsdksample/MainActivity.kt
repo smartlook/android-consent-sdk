@@ -1,13 +1,15 @@
 package com.smartlook.consentsdksample
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.smartlook.consentsdk.ConsentSDK
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
 import com.smartlook.consentsdk.listeners.ConsentResultListener
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ConsentResultListener {
 
     private lateinit var consentSDK: ConsentSDK
 
@@ -38,11 +40,12 @@ class MainActivity : AppCompatActivity() {
             confirmButtonText = "This is my will",
             consentFormItems = consentItems)
 
-        consentSDK.showConsentFormDialog(consent, object : ConsentResultListener {
-            override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+        dialog_fragment.setOnClickListener {
+            consentSDK.showConsentFormDialogFragment(this, consent)
+        }
+    }
 
-            }
-        })
-
+    override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+        Toast.makeText(this, "Result obtained", Toast.LENGTH_LONG).show()
     }
 }

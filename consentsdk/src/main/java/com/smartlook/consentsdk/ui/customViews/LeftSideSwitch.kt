@@ -31,7 +31,9 @@ class LeftSideSwitch : LinearLayout {
 
     var isChecked = false
         set(value) {
-            left_side_switch_switch.isChecked = value
+            left_side_switch_switch.post {
+                left_side_switch_switch.isChecked = value
+            }
             field = value
         }
 
@@ -45,6 +47,7 @@ class LeftSideSwitch : LinearLayout {
     private fun initialize() {
         layoutView = LayoutInflater.from(context).inflate(R.layout.left_side_switch, this, true)
 
+        left_side_switch_switch.isChecked = false
         left_side_switch.setOnClickListener {
             isChecked = !isChecked
             left_side_switch_switch.isChecked = isChecked
