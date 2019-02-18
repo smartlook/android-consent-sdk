@@ -28,7 +28,7 @@ Firstly you need to instantiate `ConsentSDK` with `applicationContext`.
 val consentSDK = ConsentSDK(applicationContext)
 ```
 
-This object is gonna be used for all interaction with ConsentSDK.
+This object is gonna be used for all interactions with ConsentSDK.
 
 ### Consent form data
 
