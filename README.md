@@ -105,4 +105,32 @@ class SampleActivity : AppCompatActivity(), ConsentResultListener {
 }
 ```
 
+## Starting consent form Activity
+
+```
+class SampleActivity : AppCompatActivity() {
+
+  companion object {
+      const val CONSENT_REQUEST_CODE = 10001
+  }
+
+  ...
+
+  consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE)
+
+  ...
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CONSENT_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                val consentResults = consentSDK.getConsentResult(data)
+            }
+        }
+    }
+}
+```
+
+Consent form `Activity` is started "for a result" so to get a result you need to implement `onActivityResult` method in your `Activity`. 
+
+
 
