@@ -25,7 +25,7 @@ todo
 Firstly you need to instantiate `ConsentSDK` with `applicationContext`.
 
 ```
-val consentSDK = ConsentSDK(application)
+val consentSDK = ConsentSDK(applicationContext)
 ```
 
 This object is gonna be used for all interaction with ConsentSDK.
@@ -123,7 +123,7 @@ class SampleActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CONSENT_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                val consentResults = consentSDK.getConsentResult(data)
+                val consentResults = consentSDK.parseOutConsentResults(data)
             }
         }
     }
@@ -134,6 +134,29 @@ Consent form `Activity` is started "for a result" so to get a result you need to
 
 ### Creating conset form `Fragment`
 todo
+
+### Consent results
+When user sucessfully finishes consent form you gonna get `consentResult`. It is a `HashMap<String,Boolean>` in which:
+- `key` == `consentKey`
+- `value` represents `consentResult`:
+  - `true` consent was granted.
+  - `false` consent was rejected.
+
+### Are consent results stored?
+SDK method `areConsentResultsStored()` can be used to determine if user has already sucessfully granted all required consents.
+
+### Obtaining consent
+
+If you want to obtain a grant result for given conset (identified by unique `consentKey`) you can do it like this:
+
+```
+val consentResult = consentSDK.loadConsetResult(consentKey)
+```
+
+If `consentResult` is:
+- `true` consent was granted.
+- `false` consent was rejected.
+- `null` not defined.
 
 ## Styling
 todo
