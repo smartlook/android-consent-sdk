@@ -7,7 +7,7 @@ import android.content.SharedPreferences
 class SharedPreferencesHelper(context: Context) : ContextWrapper(context.applicationContext) {
 
     companion object {
-        private const val CONSENT_SDI_SHARED_PREFERENCES = "com.smartlook.consentsdk.sharedprefrences"
+        private const val CONSENT_SDI_SHARED_PREFERENCES = "com.smartlook.consentsdk.sharedpreferences"
     }
 
     private val sharedPreferences: SharedPreferences
