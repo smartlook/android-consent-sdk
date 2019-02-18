@@ -1,5 +1,7 @@
 package com.smartlook.consentsdksample
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -13,16 +15,26 @@ class MainActivity : AppCompatActivity(), ConsentResultListener {
 
     private lateinit var consentSDK: ConsentSDK
 
+    companion object {
+        const val CONSENT_1_KEY = "consent_1_key"
+        const val CONSENT_2_KEY = "consent_2_key"
+
+        const val CONSENT_REQUEST_CODE = 10001
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         consentSDK = ConsentSDK(this)
-
-        val consentFormData = sampleConsentFormData()
+        val consentFormData = prepareConsentFormData()
 
         show_dialog.setOnClickListener {
-            consentSDK.showConsentFormDialogFragment(this, consentFormData)
+            consentSDK.showConsentFormDialog(consentFormData, object : ConsentResultListener {
+                override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+                    displayConsentResults(consentResults)
+                }
+            })
         }
 
         show_dialog_fragment.setOnClickListener {
@@ -30,38 +42,49 @@ class MainActivity : AppCompatActivity(), ConsentResultListener {
         }
 
         start_activity.setOnClickListener {
-            consentSDK.startConsentFormActivity(this, consentFormData, 10000)
+            consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE)
         }
     }
 
     override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
-        Toast.makeText(this, "Result obtained", Toast.LENGTH_LONG).show()
+        displayConsentResults(consentResults)
     }
 
-    private fun sampleConsentFormData(): ConsentFormData {
-        val consentItems = sampleConsentFormItem()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CONSENT_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                displayConsentResults(consentSDK.parseOutConsentResults(data))
+            }
+        }
+    }
 
+    private fun prepareConsentFormData(): ConsentFormData {
         return ConsentFormData(
-            titleText = "This is a ConsentFormData dialog",
-            descriptionText = "Curabitur sagittis hendrerit ante. Aenean fermentum risus id tortor. Integer in sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Aliquam ornare wisi eu metus. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam.",
-            confirmButtonText = "This is my will",
-            consentFormItems = consentItems)
+            titleText = getString(R.string.consent_form_title),
+            descriptionText = getString(R.string.consent_form_description),
+            confirmButtonText = getString(R.string.consent_form_confirm_button_text),
+            consentFormItems = prepareConsentFormItems()
+        )
     }
 
-    private fun sampleConsentFormItem(): Array<ConsentFormItem> {
+    private fun prepareConsentFormItems(): Array<ConsentFormItem> {
         return arrayOf(
             ConsentFormItem(
-                "AGE_CONSENT",
-                true,
-                "I certify that I'm over the age of fifteen, have read, understood adn accepted Privacy Policy.",
-                null
+                consentKey = CONSENT_1_KEY,
+                required = true,
+                description = getString(R.string.consent_1_description),
+                link = null
             ),
             ConsentFormItem(
-                "SDK_CONSENT",
-                false,
-                "I agree to play for free and that my personal data is collected via the SDK tools build into the application.",
-                "https://www.nplix.com/kotlin-parcelable-array-objects/"
+                consentKey = CONSENT_2_KEY,
+                required = false,
+                description = getString(R.string.consent_2_description),
+                link = getString(R.string.consent_2_link)
             )
         )
+    }
+
+    private fun displayConsentResults(consentResults: HashMap<String, Boolean>) {
+        //todo display consent results in some sort of list
     }
 }

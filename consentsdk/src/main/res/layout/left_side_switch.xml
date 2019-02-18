@@ -18,6 +18,7 @@
         android:layout_height="match_parent" />
 
     <TextView
+        android:textColor="@color/consent_form_text_color"
         android:id="@+id/left_side_switch_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

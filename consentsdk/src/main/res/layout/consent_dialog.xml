@@ -26,6 +26,8 @@
             android:layout_height="@dimen/consent_dialog_vertical_space"/>
 
         <TextView
+            android:textColor="@color/consent_form_text_color"
+            android:textSize="12sp"
             android:id="@+id/consent_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

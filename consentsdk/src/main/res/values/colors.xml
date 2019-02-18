@@ -3,5 +3,6 @@
 
     <color name="consent_form_background">@android:color/white</color>
     <color name="consent_form_title_text_color">@android:color/black</color>
+    <color name="consent_form_text_color">#303030</color>
 
 </resources>

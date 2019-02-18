@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class ConsentFormItem(val consentKey: String,
                            val required: Boolean,
-                           val text: String,
+                           val description: String,
                            val link: String?) : Serializable

@@ -3,8 +3,10 @@ package com.smartlook.consentsdk
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.support.v4.app.FragmentActivity
 import com.smartlook.consentsdk.data.ConsentFormData
+import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.SharedPreferencesHelper
 import com.smartlook.consentsdk.listeners.ConsentResultListener
 import com.smartlook.consentsdk.ui.consent.activity.ConsentActivity
@@ -27,7 +29,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @return TRUE if consent was granted, FALSE if it was refused and null if not defined.
      */
     fun loadConsentResult(consentKey: String): Boolean? {
-        return if (isConsentResultStored()) {
+        return if (areConsentResultsStored()) {
             sharedPreferences.loadBoolean(consentKey)
         } else {
             null
@@ -47,12 +49,12 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      *
      * @return TRUE if user has seen and successfully filled consent form.
      */
-    fun isConsentResultStored() = sharedPreferences.loadBoolean(CONSENT_RESULT_STORED)
+    fun areConsentResultsStored() = sharedPreferences.loadBoolean(CONSENT_RESULT_STORED)
 
     /**
      * Store information that user filled consent form successfully.
      */
-    fun setConsentResultStored() = sharedPreferences.saveBoolean(CONSENT_RESULT_STORED, true)
+    fun setConsentResultsStored() = sharedPreferences.saveBoolean(CONSENT_RESULT_STORED, true)
 
     /**
      * Display consent form on Dialog. If you want to correctly persist on orientation change use
@@ -72,5 +74,11 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
 
     fun startConsentFormActivity(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) =
             ConsentActivity.start(activity, consentFormData, requestCode)
+
+    fun parseOutConsentResults(data: Intent?): HashMap<String, Boolean> {
+        ConsentHelper.restoreConsentResults(data?.extras).let {
+            return it ?: throw UnknownError()
+        }
+    }
 
 }

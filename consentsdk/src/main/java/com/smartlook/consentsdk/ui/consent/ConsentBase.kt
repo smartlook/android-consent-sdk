@@ -11,7 +11,6 @@ import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
 import com.smartlook.consentsdk.listeners.ConsentItemListener
 
-
 class ConsentBase(
     private val consentFormData: ConsentFormData,
     rootView: View,
@@ -77,7 +76,7 @@ class ConsentBase(
     }
 
     private fun storeGrantResults() {
-        consentApi.setConsentResultStored()
+        consentApi.setConsentResultsStored()
 
         for (entry in consentResults.entries) {
             consentApi.saveConsentResult(entry.key, entry.value)
