@@ -10,7 +10,7 @@
     <dimen name="consent_item_padding">8dp</dimen>
     <dimen name="consent_item_minimal_height">80dp</dimen>
     <dimen name="consent_item_link_icon_size">48dp</dimen>
-    <dimen name="consent_item_link_icon_padding">8dp</dimen>
+    <dimen name="consent_item_link_icon_padding">12dp</dimen>
     <dimen name="consent_dialog_vertical_space">16dp</dimen>
     <dimen name="consent_item_horizontal_space">8dp</dimen>
 

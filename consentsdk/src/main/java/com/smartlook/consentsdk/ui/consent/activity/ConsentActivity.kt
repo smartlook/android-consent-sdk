@@ -27,6 +27,7 @@ class ConsentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.consent_activity)
+        hideToolbar()
 
         consentFormData = ConsentFormData.constructFromBundle(intent.extras) ?: throw InvalidParameterException()
 
@@ -48,6 +49,11 @@ class ConsentActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         ConsentHelper.storeConsentResults(outState, consentBase.consentResults)
+    }
+
+    private fun hideToolbar() {
+        actionBar?.hide()
+        supportActionBar?.hide()
     }
 
     private fun createResultListener(): ConsentBase.ResultListener {
