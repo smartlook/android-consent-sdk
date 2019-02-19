@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DialogStyle" parent="Base.Theme.AppCompat.Dialog">
+        <item name="colorAccent">#85318F</item>
+    </style>
+
 </resources>

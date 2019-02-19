@@ -3,6 +3,7 @@ package com.smartlook.consentsdk.ui.consent.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.StyleRes
 import android.view.Window
 import android.view.WindowManager
 import com.smartlook.consentsdk.R
@@ -11,9 +12,27 @@ import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 
-class ConsentFormDialog(context: Context,
-                        private val consentFormData: ConsentFormData,
-                        private val consentResultsListener: ConsentResultsListener) : Dialog(context) {
+class ConsentFormDialog : Dialog {
+
+    private var consentFormData: ConsentFormData
+    private var consentResultsListener: ConsentResultsListener
+
+    constructor(context: Context,
+                consentFormData: ConsentFormData,
+                consentResultsListener: ConsentResultsListener) : super(context) {
+
+        this.consentFormData = consentFormData
+        this.consentResultsListener = consentResultsListener
+    }
+
+    constructor(context: Context,
+                consentFormData: ConsentFormData,
+                styleId: Int,
+                consentResultsListener: ConsentResultsListener) : super(context, styleId) {
+
+        this.consentFormData = consentFormData
+        this.consentResultsListener = consentResultsListener
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

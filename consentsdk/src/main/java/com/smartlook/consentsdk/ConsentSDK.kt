@@ -43,7 +43,8 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentKey Unique key identifying consent.
      * @param grantResult TRUE if consent was granted, FALSE if it was refused.
      */
-    fun saveConsentResult(consentKey: String, grantResult: Boolean) =
+    fun saveConsentResult(consentKey: String,
+                          grantResult: Boolean) =
         sharedPreferences.saveBoolean(consentKey, grantResult)
 
     /**
@@ -66,8 +67,24 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      * @param consentResultsListener Callback called on successful fill of consent form (@see ConsentResultsListener).
      */
-    fun showConsentFormDialog(activity: Activity, consentFormData: ConsentFormData, consentResultsListener: ConsentResultsListener) =
+    fun showConsentFormDialog(activity: Activity,
+                              consentFormData: ConsentFormData,
+                              consentResultsListener: ConsentResultsListener) =
         ConsentFormDialog(activity, consentFormData, consentResultsListener).show()
+
+    /**
+     * Display consent form on Dialog. If you want to correctly persist on orientation change use
+     * showConsentFormDialogFragment().
+     *
+     * @param activity Calling Activity reference.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param consentResultsListener Callback called on successful fill of consent form (@see ConsentResultsListener).
+     */
+    fun showConsentFormDialog(activity: Activity,
+                              consentFormData: ConsentFormData,
+                              styleId: Int,
+                              consentResultsListener: ConsentResultsListener) =
+            ConsentFormDialog(activity, consentFormData, styleId, consentResultsListener).show()
 
     /**
      * Display consent form on DialogFragment.

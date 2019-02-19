@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleShowDialog(consentFormData: ConsentFormData) {
         show_dialog.setOnClickListener {
-            App.consentSDK.showConsentFormDialog(this, consentFormData, object : ConsentResultsListener {
+            App.consentSDK.showConsentFormDialog(this, consentFormData, R.style.DialogStyle, object : ConsentResultsListener {
                 override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
                     displayConsentResults(consentResults as HashMap<String, Boolean?>)
                 }
