@@ -46,6 +46,8 @@ class LeftSideSwitch : LinearLayout {
         this.listener = onCheckedChangeListener
     }
 
+    fun setTextColor(textColor: Int) = left_side_switch_text.setTextColor(textColor)
+
     private fun initialize() {
         layoutView = LayoutInflater.from(context).inflate(R.layout.left_side_switch, this, true)
         handleSwitchClick()

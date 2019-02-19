@@ -1,6 +1,7 @@
 package com.smartlook.consentsdk.ui.consent
 
 import android.content.ContextWrapper
+import android.support.annotation.ColorInt
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -15,10 +16,11 @@ import android.widget.FrameLayout
 import com.smartlook.consentsdk.helpers.UtilsHelper
 
 class ConsentBase(
-    private val consentFormData: ConsentFormData,
-    rootView: View,
-    private val resultListener: ResultListener,
-    consentResults: HashMap<String, Boolean>? = null) : ContextWrapper(rootView.context) {
+        private val consentFormData: ConsentFormData,
+        private val rootView: View,
+        private val resultListener: ResultListener,
+        consentResults: HashMap<String, Boolean>? = null,
+        private val styleId: Int? = null) : ContextWrapper(rootView.context) {
 
     private val consentApi = ConsentSDK(this)
     var consentResults: HashMap<String, Boolean>
@@ -30,7 +32,8 @@ class ConsentBase(
     private val bConfirm = rootView.findViewById<Button>(R.id.consent_confirm_button)
 
     init {
-        this.consentResults = consentResults ?: obtainConsentResults(consentFormData.consentFormItems)
+        this.consentResults = consentResults
+                ?: obtainConsentResults(consentFormData.consentFormItems)
     }
 
     fun displayConsent() {
@@ -39,6 +42,8 @@ class ConsentBase(
 
         updateConfirmButton()
         handleConfirmButton()
+
+        applyFormStyle(parseOutFormStyleValues())
     }
 
     private fun updateConfirmButton() {
@@ -76,8 +81,8 @@ class ConsentBase(
     private fun addDivider() {
         lvConsentItemsRoot.addView(View(this).apply {
             layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                UtilsHelper.convertDpToPixel(this@ConsentBase,1f).toInt()
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    UtilsHelper.convertDpToPixel(this@ConsentBase, 1f).toInt()
             )
             background = ContextCompat.getDrawable(this@ConsentBase, R.color.consent_form_divider_color)
         })
@@ -99,11 +104,11 @@ class ConsentBase(
     }
 
     private fun obtainConsentResults(consentFormItems: Array<ConsentFormItem>) =
-        hashMapOf<String, Boolean>().apply {
-            consentFormItems.forEach {
-                put(it.consentKey, consentApi.loadConsentResult(it.consentKey) ?: false)
+            hashMapOf<String, Boolean>().apply {
+                consentFormItems.forEach {
+                    put(it.consentKey, consentApi.loadConsentResult(it.consentKey) ?: false)
+                }
             }
-        }
 
     private fun createConsentItemListener() = object : ConsentItemListener {
         override fun onConsentChange(itemIndex: Int, consent: Boolean) {
@@ -114,8 +119,73 @@ class ConsentBase(
 
     private fun keyOnIndex(itemIndex: Int) = consentFormData.consentFormItems[itemIndex].consentKey
 
+    private fun parseOutFormStyleValues(): StyleValues? {
+        val styleValues = StyleValues()
+
+        with(obtainStyledAttributes(styleId ?: return null, R.styleable.ConsentForm)) {
+            (0 until indexCount).map { getIndex(it) }.forEach { index ->
+                when (index) {
+                    R.styleable.ConsentForm_cf_textColor -> styleValues.textColor = getColor(index,
+                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_text_color))
+                    R.styleable.ConsentForm_cf_titleTextColor -> styleValues.titleTextColor = getColor(index,
+                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_title_text_color))
+                    R.styleable.ConsentForm_cf_confirmButtonTextColor -> styleValues.confirmButtonTextColor = getColor(index,
+                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_confirm_button_text_color))
+                    R.styleable.ConsentForm_cf_backgroundColor -> styleValues.backgroundColor = getColor(index,
+                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_background))
+                    R.styleable.ConsentForm_cf_dividerColor -> styleValues.dividerColor = getColor(index,
+                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_divider_color))
+                }
+            }
+        }
+
+        return styleValues
+    }
+
+    private fun applyFormStyle(styleValues: StyleValues?) {
+        styleValues ?: return
+
+        if (styleValues.textColor != null) {
+            tvDescription.setTextColor(styleValues.textColor!!)
+        }
+
+        if (styleValues.titleTextColor != null) {
+            tvTitle.setTextColor(styleValues.titleTextColor!!)
+        }
+
+        if (styleValues.backgroundColor != null) {
+            rootView.setBackgroundColor(styleValues.backgroundColor!!)
+        }
+
+        if (styleValues.confirmButtonTextColor != null) {
+            bConfirm.setTextColor(styleValues.confirmButtonTextColor!!)
+        }
+
+        applyFormItemsStyle(styleValues)
+    }
+
+    private fun applyFormItemsStyle(styleValues: StyleValues) {
+        (0 until lvConsentItemsRoot.childCount).map { lvConsentItemsRoot.getChildAt(it) }.forEach { view ->
+            if (view is ConsentFormItemView) {
+                if (styleValues.textColor != null) {
+                    view.setTextColor(styleValues.textColor!!)
+                }
+            } else { // divider
+                if (styleValues.dividerColor != null) {
+                    view.setBackgroundColor(styleValues.dividerColor!!)
+                }
+            }
+        }
+    }
+
     interface ResultListener {
         fun onResult(consentResults: HashMap<String, Boolean>)
     }
+
+    data class StyleValues(@ColorInt var textColor: Int? = null,
+                           @ColorInt var titleTextColor: Int? = null,
+                           @ColorInt var confirmButtonTextColor: Int? = null,
+                           @ColorInt var backgroundColor: Int? = null,
+                           @ColorInt var dividerColor: Int? = null)
 
 }

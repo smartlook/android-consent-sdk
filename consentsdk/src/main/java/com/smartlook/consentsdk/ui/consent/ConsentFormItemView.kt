@@ -48,4 +48,6 @@ class ConsentFormItemView : LinearLayout {
             })
         }
     }
+
+    fun setTextColor(textColor: Int) = consent_item_switch.setTextColor(textColor)
 }

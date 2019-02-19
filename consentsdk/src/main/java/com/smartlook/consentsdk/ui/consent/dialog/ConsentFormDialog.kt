@@ -3,7 +3,6 @@ package com.smartlook.consentsdk.ui.consent.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StyleRes
 import android.view.Window
 import android.view.WindowManager
 import com.smartlook.consentsdk.R
@@ -16,6 +15,7 @@ class ConsentFormDialog : Dialog {
 
     private var consentFormData: ConsentFormData
     private var consentResultsListener: ConsentResultsListener
+    private var styleId: Int? = null
 
     constructor(context: Context,
                 consentFormData: ConsentFormData,
@@ -39,8 +39,6 @@ class ConsentFormDialog : Dialog {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.consent_dialog)
-
-        ConsentBase(consentFormData, root, createResultListener()).displayConsent()
     }
 
     override fun show() {
@@ -52,6 +50,8 @@ class ConsentFormDialog : Dialog {
                     WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.WRAP_CONTENT)
         }
+
+        ConsentBase(consentFormData, root, createResultListener(), styleId = styleId).displayConsent()
     }
 
     private fun createResultListener(): ConsentBase.ResultListener {

@@ -39,12 +39,7 @@ class ConsentFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val styleId = UtilsHelper.getStyleId(intent.extras)
-        if (styleId != null) {
-            setTheme(styleId)
-        }
-
+        val styleId = handleStyle()
         setContentView(R.layout.consent_activity)
         hideToolbar()
 
@@ -55,7 +50,8 @@ class ConsentFormActivity : AppCompatActivity() {
                 consentFormData,
                 root,
                 createResultListener(),
-                ConsentHelper.restoreConsentResults(savedInstanceState))
+                ConsentHelper.restoreConsentResults(savedInstanceState),
+                styleId)
 
         consentBase.displayConsent()
     }
@@ -74,6 +70,14 @@ class ConsentFormActivity : AppCompatActivity() {
     private fun hideToolbar() {
         actionBar?.hide()
         supportActionBar?.hide()
+    }
+
+    private fun handleStyle(): Int? {
+        return UtilsHelper.getStyleId(intent.extras).also {
+            if (it != null) {
+                setTheme(it)
+            }
+        }
     }
 
     private fun createResultListener(): ConsentBase.ResultListener {

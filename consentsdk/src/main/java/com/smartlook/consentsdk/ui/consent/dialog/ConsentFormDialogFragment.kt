@@ -51,15 +51,11 @@ class ConsentFormDialogFragment : DialogFragment() {
 
     private lateinit var consentBase: ConsentBase
     private lateinit var consentResultsListener: ConsentResultsListener
+    private var styleId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val styleId = UtilsHelper.getStyleId(arguments)
-        if (styleId != null) {
-            setStyle(DialogFragment.STYLE_NORMAL, styleId)
-        }
-
+        styleId = handleStyle()
         isCancelable = false
         registerListener(arguments?.getInt(CONSENT_DIALOG_FRAGMENT_CALLER_TYPE))
     }
@@ -77,7 +73,8 @@ class ConsentFormDialogFragment : DialogFragment() {
                 consentFormData,
                 root,
                 createResultListener(),
-                ConsentHelper.restoreConsentResults(savedInstanceState)
+                ConsentHelper.restoreConsentResults(savedInstanceState),
+                styleId
         )
 
         consentBase.displayConsent()
@@ -110,6 +107,14 @@ class ConsentFormDialogFragment : DialogFragment() {
             consentResultsListener = parentFragment as ConsentResultsListener
         } catch (e: ClassCastException) {
             throw ClassCastException("Calling fragment must implement ConsentResultsListener interface")
+        }
+    }
+
+    private fun handleStyle(): Int? {
+        return UtilsHelper.getStyleId(arguments).also {
+            if (it != null) {
+                setStyle(STYLE_NORMAL, it)
+            }
         }
     }
 
