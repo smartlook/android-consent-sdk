@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="@color/consent_form_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/consent_form_background"
         android:orientation="vertical"
         android:padding="@dimen/consent_dialog_padding">
 
         <TextView
-            android:textColor="@color/consent_form_title_text_color"
             android:id="@+id/consent_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/consent_form_title_text_color"
             android:textSize="@dimen/consent_dialog_title_text_size"
-            tools:text="Consent dialog title text"/>
+            tools:text="Consent dialog title text" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/consent_dialog_vertical_space"/>
+            android:layout_height="@dimen/consent_dialog_vertical_space" />
 
         <TextView
-            android:textColor="@color/consent_form_text_color"
-            android:textSize="12sp"
             android:id="@+id/consent_description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/consent_form_text_color"
+            android:textSize="12sp" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/consent_dialog_vertical_space"/>
+            android:layout_height="@dimen/consent_dialog_vertical_space" />
 
         <LinearLayout
             android:id="@+id/consent_items_root"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/consent_dialog_vertical_space"/>
+            android:layout_height="@dimen/consent_dialog_vertical_space" />
 
         <Button
             android:id="@+id/consent_confirm_button"
@@ -52,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="60dp"
-            tools:text="Confirm button"/>
+            tools:text="Confirm button" />
 
     </LinearLayout>
 
