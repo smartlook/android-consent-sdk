@@ -4,14 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import com.smartlook.consentsdk.ConsentSDK
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
-import com.smartlook.consentsdk.listeners.ConsentResultListener
+import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ConsentResultListener {
+class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private lateinit var consentSDK: ConsentSDK
 
@@ -30,8 +29,8 @@ class MainActivity : AppCompatActivity(), ConsentResultListener {
         val consentFormData = prepareConsentFormData()
 
         show_dialog.setOnClickListener {
-            consentSDK.showConsentFormDialog(consentFormData, object : ConsentResultListener {
-                override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+            consentSDK.showConsentFormDialog(consentFormData, object : ConsentResultsListener {
+                override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
                     displayConsentResults(consentResults)
                 }
             })
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), ConsentResultListener {
         }
     }
 
-    override fun onConsentResult(consentResults: HashMap<String, Boolean>) {
+    override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
         displayConsentResults(consentResults)
     }
 

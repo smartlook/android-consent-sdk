@@ -7,13 +7,13 @@ import android.view.Window
 import android.view.WindowManager
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
-import com.smartlook.consentsdk.listeners.ConsentResultListener
+import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 
 class ConsentDialog(context: Context,
                     private val consentFormData: ConsentFormData,
-                    private val consentResultListener: ConsentResultListener) : Dialog(context) {
+                    private val consentResultsListener: ConsentResultsListener) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class ConsentDialog(context: Context,
         return object : ConsentBase.ResultListener {
             override fun onResult(consentResults: HashMap<String, Boolean>) {
                 dismiss()
-                consentResultListener.onConsentResult(consentResults)
+                consentResultsListener.onConsentResults(consentResults)
             }
         }
     }

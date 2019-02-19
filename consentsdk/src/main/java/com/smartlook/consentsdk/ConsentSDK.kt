@@ -9,10 +9,11 @@ import android.support.v4.app.FragmentActivity
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.SharedPreferencesHelper
-import com.smartlook.consentsdk.listeners.ConsentResultListener
+import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.activity.ConsentActivity
 import com.smartlook.consentsdk.ui.consent.dialog.ConsentDialog
 import com.smartlook.consentsdk.ui.consent.dialog.ConsentDialogFragment
+import com.smartlook.consentsdk.ui.consent.fragment.ConsentFragment
 
 class ConsentSDK(context: Context) : ContextWrapper(context) {
 
@@ -62,15 +63,15 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * showConsentFormDialogFragment().
      *
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
-     * @param consentResultListener Callback called on successful fill of consent form (@see ConsentResultListener).
+     * @param consentResultsListener Callback called on successful fill of consent form (@see ConsentResultsListener).
      */
-    fun showConsentFormDialog(consentFormData: ConsentFormData, consentResultListener: ConsentResultListener) =
-        ConsentDialog(this, consentFormData, consentResultListener).show()
+    fun showConsentFormDialog(consentFormData: ConsentFormData, consentResultsListener: ConsentResultsListener) =
+        ConsentDialog(this, consentFormData, consentResultsListener).show()
 
     /**
      * Display consent form on DialogFragment.
      *
-     * @param activity Calling Activity reference. This Activity needs to implement ConsentResultListener.
+     * @param activity Calling Activity reference. This Activity needs to implement ConsentResultsListener.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
     fun showConsentFormDialogFragment(activity: FragmentActivity, consentFormData: ConsentFormData) {
@@ -80,7 +81,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
     /**
      * Display consent form on DialogFragment.
      *
-     * @param fragment Calling Fragment reference. This Fragment needs to implement ConsentResultListener.
+     * @param fragment Calling Fragment reference. This Fragment needs to implement ConsentResultsListener.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
     fun showConsentFormDialogFragment(fragment: Fragment, consentFormData: ConsentFormData) {
@@ -107,5 +108,13 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
             return it ?: throw UnknownError()
         }
     }
+
+    /**
+     * Create instance of consent form Fragment. To register ConsentResultsListener you need to call
+     * registerConsentResultsListener().
+     *
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     */
+    fun createConsenFromFragment(consentFormData: ConsentFormData) = ConsentFragment.newInstance(consentFormData)
 
 }

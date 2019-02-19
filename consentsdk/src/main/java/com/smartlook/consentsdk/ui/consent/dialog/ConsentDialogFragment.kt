@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
-import com.smartlook.consentsdk.listeners.ConsentResultListener
+import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
@@ -47,7 +47,7 @@ class ConsentDialogFragment : DialogFragment() {
     }
 
     private lateinit var consentBase: ConsentBase
-    private lateinit var consentResultListener: ConsentResultListener
+    private lateinit var consentResultsListener: ConsentResultsListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,24 +91,24 @@ class ConsentDialogFragment : DialogFragment() {
 
     private fun registerActivityListener() {
         try {
-            consentResultListener = activity as ConsentResultListener
+            consentResultsListener = activity as ConsentResultsListener
         } catch (e: ClassCastException) {
-            throw ClassCastException("Calling activity must implement ConsentResultListener interface")
+            throw ClassCastException("Calling activity must implement ConsentResultsListener interface")
         }
     }
 
     private fun registerFragmentListener() {
         try {
-            consentResultListener = parentFragment as ConsentResultListener
+            consentResultsListener = parentFragment as ConsentResultsListener
         } catch (e: ClassCastException) {
-            throw ClassCastException("Calling fragment must implement ConsentResultListener interface")
+            throw ClassCastException("Calling fragment must implement ConsentResultsListener interface")
         }
     }
 
     private fun createResultListener(): ConsentBase.ResultListener {
         return object : ConsentBase.ResultListener {
             override fun onResult(consentResults: HashMap<String, Boolean>) {
-                consentResultListener.onConsentResult(consentResults)
+                consentResultsListener.onConsentResults(consentResults)
                 dismiss()
             }
         }
