@@ -12,4 +12,8 @@
         <item name="colorAccent">#85318F</item>
     </style>
 
+    <style name="ActivityStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">#85318F</item>
+    </style>
+
 </resources>

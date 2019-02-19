@@ -92,8 +92,21 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param activity Calling Activity reference. This Activity needs to implement ConsentResultsListener.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
-    fun showConsentFormDialogFragment(activity: FragmentActivity, consentFormData: ConsentFormData) {
+    fun showConsentFormDialogFragment(activity: FragmentActivity,
+                                      consentFormData: ConsentFormData) {
         ConsentFormDialogFragment.show(activity, consentFormData)
+    }
+
+    /**
+     * Display consent form on DialogFragment.
+     *
+     * @param activity Calling Activity reference. This Activity needs to implement ConsentResultsListener.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     */
+    fun showConsentFormDialogFragment(activity: FragmentActivity,
+                                      consentFormData: ConsentFormData,
+                                      styleId: Int) {
+        ConsentFormDialogFragment.show(activity, consentFormData, styleId)
     }
 
     /**
@@ -102,8 +115,21 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param fragment Calling Fragment reference. This Fragment needs to implement ConsentResultsListener.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
-    fun showConsentFormDialogFragment(fragment: Fragment, consentFormData: ConsentFormData) {
+    fun showConsentFormDialogFragment(fragment: Fragment,
+                                      consentFormData: ConsentFormData) {
         ConsentFormDialogFragment.show(fragment, consentFormData)
+    }
+
+    /**
+     * Display consent form on DialogFragment.
+     *
+     * @param fragment Calling Fragment reference. This Fragment needs to implement ConsentResultsListener.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     */
+    fun showConsentFormDialogFragment(fragment: Fragment,
+                                      consentFormData: ConsentFormData,
+                                      styleId: Int) {
+        ConsentFormDialogFragment.show(fragment, consentFormData, styleId)
     }
 
     /**
@@ -113,8 +139,23 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      * @param requestCode Unique request code used in onActivityResult to determine corresponding result.
      */
-    fun startConsentFormActivity(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) =
+    fun startConsentFormActivity(activity: Activity,
+                                 consentFormData: ConsentFormData,
+                                 requestCode: Int) =
         ConsentFormActivity.start(activity, consentFormData, requestCode)
+
+    /**
+     * Display consent form Activity.
+     *
+     * @param activity Calling Activity reference. This Activity needs to implement onActivityResult to get result.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param requestCode Unique request code used in onActivityResult to determine corresponding result.
+     */
+    fun startConsentFormActivity(activity: Activity,
+                                 consentFormData: ConsentFormData,
+                                 requestCode: Int,
+                                 styleId: Int) =
+            ConsentFormActivity.start(activity, consentFormData, requestCode, styleId)
 
     /**
      * Parse out consentResults HashMap<consentKey, grantResult> from activity result.

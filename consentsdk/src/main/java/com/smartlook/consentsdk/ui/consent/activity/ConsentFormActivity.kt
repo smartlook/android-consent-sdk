@@ -3,21 +3,34 @@ package com.smartlook.consentsdk.ui.consent.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
+import com.smartlook.consentsdk.helpers.UtilsHelper
 import com.smartlook.consentsdk.ui.consent.ConsentBase
+import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialogFragment
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
 class ConsentFormActivity : AppCompatActivity() {
 
     companion object {
-        fun start(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) {
-            activity.startActivityForResult(
-                    Intent(activity, ConsentFormActivity::class.java).apply { putExtras(consentFormData.createBundle()) },
-                    requestCode)
+
+        fun start(activity: Activity,
+                  consentFormData: ConsentFormData,
+                  requestCode: Int,
+                  styleId: Int? = null) {
+
+            val intent = Intent(activity, ConsentFormActivity::class.java).apply {
+                putExtras(consentFormData.createBundle().apply {
+                    putInt(UtilsHelper.STYLE_ID_EXTRA, styleId ?: View.NO_ID)
+                })
+            }
+
+            activity.startActivityForResult(intent, requestCode)
         }
     }
 
@@ -26,16 +39,23 @@ class ConsentFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val styleId = UtilsHelper.getStyleId(intent.extras)
+        if (styleId != null) {
+            setTheme(styleId)
+        }
+
         setContentView(R.layout.consent_activity)
         hideToolbar()
 
-        consentFormData = ConsentFormData.constructFromBundle(intent.extras) ?: throw InvalidParameterException()
+        consentFormData = ConsentFormData.constructFromBundle(intent.extras)
+                ?: throw InvalidParameterException()
 
         consentBase = ConsentBase(
-            consentFormData,
-            root,
-            createResultListener(),
-            ConsentHelper.restoreConsentResults(savedInstanceState))
+                consentFormData,
+                root,
+                createResultListener(),
+                ConsentHelper.restoreConsentResults(savedInstanceState))
 
         consentBase.displayConsent()
     }
