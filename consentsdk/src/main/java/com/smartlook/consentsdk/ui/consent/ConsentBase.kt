@@ -65,7 +65,7 @@ class ConsentBase(
     private fun displayConsentItems() {
         consentFormData.consentFormItems.forEachIndexed { index, consentItem ->
             addDivider()
-            lvConsentItemsRoot.addView(ConsentItemView(this).apply {
+            lvConsentItemsRoot.addView(ConsentFormItemView(this).apply {
                 setData(consentResults[keyOnIndex(index)] ?: false, consentItem)
                 registerListener(index, createConsentItemListener())
             })

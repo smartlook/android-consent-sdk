@@ -15,7 +15,7 @@ import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
-class ConsentDialogFragment : DialogFragment() {
+class ConsentFormDialogFragment : DialogFragment() {
 
     companion object {
 
@@ -26,7 +26,7 @@ class ConsentDialogFragment : DialogFragment() {
         private const val CONSENT_DIALOG_FRAGMENT_CALLER_TYPE = "consent_dialog_fragment_caller_type"
 
         fun show(activity: FragmentActivity, consentFormData: ConsentFormData) {
-            val consentDialogFragment = ConsentDialogFragment().apply {
+            val consentDialogFragment = ConsentFormDialogFragment().apply {
                 arguments = consentFormData.createBundle().apply {
                     putInt(CONSENT_DIALOG_FRAGMENT_CALLER_TYPE, CALLED_FROM_ACTIVITY)
                 }
@@ -36,7 +36,7 @@ class ConsentDialogFragment : DialogFragment() {
         }
 
         fun show(fragment: Fragment, consentFormData: ConsentFormData) {
-            val consentDialogFragment = ConsentDialogFragment().apply {
+            val consentDialogFragment = ConsentFormDialogFragment().apply {
                 arguments = consentFormData.createBundle().apply {
                     putInt(CONSENT_DIALOG_FRAGMENT_CALLER_TYPE, CALLED_FROM_FRAGMENT)
                 }

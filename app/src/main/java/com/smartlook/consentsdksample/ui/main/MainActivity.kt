@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
+import com.smartlook.consentsdk.ui.consent.fragment.ConsentFormFragment
 import com.smartlook.consentsdksample.App
 import com.smartlook.consentsdksample.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         const val CONSENT_2_KEY = "consent_2_key"
 
         const val CONSENT_REQUEST_CODE = 10001
+
+        const val CONSENT_FORM_FRAGMENT_TAG = "consent_form_fragment"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
             handleShowDialog(it)
             handleShowFragmentDialog(it)
             handleStartConsentActivity(it)
+            handleShowFragment(it)
         }
     }
 
@@ -104,6 +108,39 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
                     displayConsentResults(consentResults as HashMap<String, Boolean?>)
                 }
             })
+        }
+    }
+
+    private fun handleShowFragment(consentFormData: ConsentFormData) {
+        show_fragment.setOnClickListener {
+            with(supportFragmentManager) {
+                beginTransaction()
+                    .replace(R.id.fragment_placeholder, App.consentSDK.createConsenFromFragment(consentFormData), CONSENT_FORM_FRAGMENT_TAG)
+                    .commit()
+                executePendingTransactions()
+            }
+
+            show_fragment.isEnabled = false
+
+            with(supportFragmentManager.findFragmentByTag(CONSENT_FORM_FRAGMENT_TAG) as ConsentFormFragment) {
+                registerConsentResultsListener(createConsentFormFragmentResultsListener())
+            }
+        }
+
+    }
+
+    private fun createConsentFormFragmentResultsListener(): ConsentResultsListener {
+        return object : ConsentResultsListener {
+            override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
+                displayConsentResults(consentResults as HashMap<String, Boolean?>)
+
+                with(supportFragmentManager.beginTransaction()) {
+                    remove(supportFragmentManager.findFragmentByTag(CONSENT_FORM_FRAGMENT_TAG) as ConsentFormFragment)
+                    commit()
+                }
+
+                show_fragment.isEnabled = true
+            }
         }
     }
 

@@ -5,6 +5,7 @@
     <string name="show_dialog">Show Dialog</string>
     <string name="show_dialogfragment">Show DialogFragment</string>
     <string name="start_activity">Start activity</string>
+    <string name="show_fragment">Show fragment</string>
 
     <!-- Consent form data -->
     <string name="consent_form_title">Consent SDK demo</string>
@@ -16,6 +17,6 @@
 
     <!-- 2nd consent -->
     <string name="consent_2_description">Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</string>
-    <string name="consent_2_link">https://www.nplix.com/kotlin-parcelable-array-objects/</string>
+    <string name="consent_2_link">https://www.smartlook.com/</string>
 
 </resources>

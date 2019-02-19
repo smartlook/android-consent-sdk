@@ -10,15 +10,14 @@ import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.ConsentBase
-import com.smartlook.consentsdk.ui.consent.dialog.ConsentDialogFragment
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
-class ConsentFragment : Fragment() {
+class ConsentFormFragment : Fragment() {
 
     companion object {
-        fun newInstance(consentFormData: ConsentFormData): ConsentDialogFragment {
-            return ConsentDialogFragment().apply {
+        fun newInstance(consentFormData: ConsentFormData): ConsentFormFragment {
+            return ConsentFormFragment().apply {
                 arguments = consentFormData.createBundle()
             }
         }

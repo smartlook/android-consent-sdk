@@ -10,10 +10,10 @@ import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.SharedPreferencesHelper
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
-import com.smartlook.consentsdk.ui.consent.activity.ConsentActivity
-import com.smartlook.consentsdk.ui.consent.dialog.ConsentDialog
-import com.smartlook.consentsdk.ui.consent.dialog.ConsentDialogFragment
-import com.smartlook.consentsdk.ui.consent.fragment.ConsentFragment
+import com.smartlook.consentsdk.ui.consent.activity.ConsentFormActivity
+import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialog
+import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialogFragment
+import com.smartlook.consentsdk.ui.consent.fragment.ConsentFormFragment
 
 class ConsentSDK(context: Context) : ContextWrapper(context) {
 
@@ -67,7 +67,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentResultsListener Callback called on successful fill of consent form (@see ConsentResultsListener).
      */
     fun showConsentFormDialog(activity: Activity, consentFormData: ConsentFormData, consentResultsListener: ConsentResultsListener) =
-        ConsentDialog(activity, consentFormData, consentResultsListener).show()
+        ConsentFormDialog(activity, consentFormData, consentResultsListener).show()
 
     /**
      * Display consent form on DialogFragment.
@@ -76,7 +76,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
     fun showConsentFormDialogFragment(activity: FragmentActivity, consentFormData: ConsentFormData) {
-        ConsentDialogFragment.show(activity, consentFormData)
+        ConsentFormDialogFragment.show(activity, consentFormData)
     }
 
     /**
@@ -86,7 +86,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
     fun showConsentFormDialogFragment(fragment: Fragment, consentFormData: ConsentFormData) {
-        ConsentDialogFragment.show(fragment, consentFormData)
+        ConsentFormDialogFragment.show(fragment, consentFormData)
     }
 
     /**
@@ -97,7 +97,7 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param requestCode Unique request code used in onActivityResult to determine corresponding result.
      */
     fun startConsentFormActivity(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) =
-        ConsentActivity.start(activity, consentFormData, requestCode)
+        ConsentFormActivity.start(activity, consentFormData, requestCode)
 
     /**
      * Parse out consentResults HashMap<consentKey, grantResult> from activity result.
@@ -116,6 +116,6 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      *
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
-    fun createConsenFromFragment(consentFormData: ConsentFormData) = ConsentFragment.newInstance(consentFormData)
+    fun createConsenFromFragment(consentFormData: ConsentFormData) = ConsentFormFragment.newInstance(consentFormData)
 
 }

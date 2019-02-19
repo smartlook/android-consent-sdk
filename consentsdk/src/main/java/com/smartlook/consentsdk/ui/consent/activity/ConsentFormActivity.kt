@@ -11,12 +11,12 @@ import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
-class ConsentActivity : AppCompatActivity() {
+class ConsentFormActivity : AppCompatActivity() {
 
     companion object {
         fun start(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) {
             activity.startActivityForResult(
-                    Intent(activity, ConsentActivity::class.java).apply { putExtras(consentFormData.createBundle()) },
+                    Intent(activity, ConsentFormActivity::class.java).apply { putExtras(consentFormData.createBundle()) },
                     requestCode)
         }
     }

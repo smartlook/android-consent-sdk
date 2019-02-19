@@ -11,7 +11,7 @@ import com.smartlook.consentsdk.helpers.UtilsHelper
 import com.smartlook.consentsdk.listeners.ConsentItemListener
 import kotlinx.android.synthetic.main.consent_item.view.*
 
-class ConsentItemView : LinearLayout {
+class ConsentFormItemView : LinearLayout {
 
     constructor(context: Context) : super(context) {
         initialize()

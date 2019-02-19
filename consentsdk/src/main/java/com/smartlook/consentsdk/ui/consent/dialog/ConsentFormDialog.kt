@@ -11,9 +11,9 @@ import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.ConsentBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 
-class ConsentDialog(context: Context,
-                    private val consentFormData: ConsentFormData,
-                    private val consentResultsListener: ConsentResultsListener) : Dialog(context) {
+class ConsentFormDialog(context: Context,
+                        private val consentFormData: ConsentFormData,
+                        private val consentResultsListener: ConsentResultsListener) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
