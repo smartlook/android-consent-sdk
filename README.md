@@ -133,7 +133,27 @@ class SampleActivity : AppCompatActivity() {
 Consent form `Activity` is started "for a result" so to get a result you need to implement `onActivityResult` method in your `Activity`. 
 
 ### Creating conset form `Fragment`
-todo
+Method `createConsentFormFragment` lets you create Fragment with consent form. Example usage might look something like this:
+
+```
+with(supportFragmentManager) {
+    beginTransaction()
+        .replace(R.id.fragment_placeholder, consentSDK.createConsentFormFragment(consentFormData), TAG)
+        .commit()
+    executePendingTransactions()
+}
+```
+
+`ConsentResultsListener` can be registered like this:
+
+```
+val consentFormFragment = supportFragmentManager.findFragmentByTag(CONSENT_FORM_FRAGMENT_TAG) as ConsentFormFragment
+consentFormFragment.registerConsentResultsListener(object : ConsentResultsListener {
+            override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
+                // Consent form result here
+            }
+        })
+```
 
 ### Consent results
 When user sucessfully finishes consent form you gonna get `consentResult`. It is a `HashMap<String,Boolean>` in which:
