@@ -12,7 +12,7 @@ import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.UtilsHelper
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
-import com.smartlook.consentsdk.ui.consent.ConsentBase
+import com.smartlook.consentsdk.ui.consent.ConsentFormBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
@@ -49,7 +49,7 @@ class ConsentFormDialogFragment : DialogFragment() {
         }
     }
 
-    private lateinit var consentBase: ConsentBase
+    private lateinit var consentFormBase: ConsentFormBase
     private lateinit var consentResultsListener: ConsentResultsListener
     private var styleId: Int? = null
 
@@ -69,7 +69,7 @@ class ConsentFormDialogFragment : DialogFragment() {
 
         val consentFormData = ConsentFormData.constructFromBundle(arguments) ?: throw InvalidParameterException()
 
-        consentBase = ConsentBase(
+        consentFormBase = ConsentFormBase(
                 consentFormData,
                 root,
                 createResultListener(),
@@ -77,13 +77,13 @@ class ConsentFormDialogFragment : DialogFragment() {
                 styleId
         )
 
-        consentBase.displayConsent()
+        consentFormBase.displayConsent()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        ConsentHelper.storeConsentResults(outState, consentBase.consentResults)
+        ConsentHelper.storeConsentResults(outState, consentFormBase.consentResults)
     }
 
     private fun registerListener(callerType: Int?) {
@@ -118,8 +118,8 @@ class ConsentFormDialogFragment : DialogFragment() {
         }
     }
 
-    private fun createResultListener(): ConsentBase.ResultListener {
-        return object : ConsentBase.ResultListener {
+    private fun createResultListener(): ConsentFormBase.ResultListener {
+        return object : ConsentFormBase.ResultListener {
             override fun onResult(consentResults: HashMap<String, Boolean>) {
                 consentResultsListener.onConsentResults(consentResults)
                 dismiss()

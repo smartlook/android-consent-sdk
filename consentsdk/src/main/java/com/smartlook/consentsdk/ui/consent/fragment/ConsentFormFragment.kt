@@ -9,7 +9,7 @@ import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
-import com.smartlook.consentsdk.ui.consent.ConsentBase
+import com.smartlook.consentsdk.ui.consent.ConsentFormBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
@@ -23,7 +23,7 @@ class ConsentFormFragment : Fragment() {
         }
     }
 
-    private lateinit var consentBase: ConsentBase
+    private lateinit var consentFormBase: ConsentFormBase
     private var consentResultsListener: ConsentResultsListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -35,28 +35,28 @@ class ConsentFormFragment : Fragment() {
 
         val consentFormData = ConsentFormData.constructFromBundle(arguments) ?: throw InvalidParameterException()
 
-        consentBase = ConsentBase(
+        consentFormBase = ConsentFormBase(
             consentFormData,
             root,
             createResultListener(),
             ConsentHelper.restoreConsentResults(savedInstanceState)
         )
 
-        consentBase.displayConsent()
+        consentFormBase.displayConsent()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        ConsentHelper.storeConsentResults(outState, consentBase.consentResults)
+        ConsentHelper.storeConsentResults(outState, consentFormBase.consentResults)
     }
 
     fun registerConsentResultsListener(listener: ConsentResultsListener) {
         consentResultsListener = listener
     }
 
-    private fun createResultListener(): ConsentBase.ResultListener {
-        return object : ConsentBase.ResultListener {
+    private fun createResultListener(): ConsentFormBase.ResultListener {
+        return object : ConsentFormBase.ResultListener {
             override fun onResult(consentResults: HashMap<String, Boolean>) {
                 consentResultsListener?.onConsentResults(consentResults)
             }

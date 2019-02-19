@@ -15,7 +15,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.FrameLayout
 import com.smartlook.consentsdk.helpers.UtilsHelper
 
-class ConsentBase(
+class ConsentFormBase(
         private val consentFormData: ConsentFormData,
         private val rootView: View,
         private val resultListener: ResultListener,
@@ -82,9 +82,9 @@ class ConsentBase(
         lvConsentItemsRoot.addView(View(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
-                    UtilsHelper.convertDpToPixel(this@ConsentBase, 1f).toInt()
+                    UtilsHelper.convertDpToPixel(this@ConsentFormBase, 1f).toInt()
             )
-            background = ContextCompat.getDrawable(this@ConsentBase, R.color.consent_form_divider_color)
+            background = ContextCompat.getDrawable(this@ConsentFormBase, R.color.consent_form_divider_color)
         })
     }
 
@@ -126,15 +126,15 @@ class ConsentBase(
             (0 until indexCount).map { getIndex(it) }.forEach { index ->
                 when (index) {
                     R.styleable.ConsentForm_cf_textColor -> styleValues.textColor = getColor(index,
-                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_text_color))
+                            ContextCompat.getColor(this@ConsentFormBase, R.color.consent_form_text_color))
                     R.styleable.ConsentForm_cf_titleTextColor -> styleValues.titleTextColor = getColor(index,
-                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_title_text_color))
+                            ContextCompat.getColor(this@ConsentFormBase, R.color.consent_form_title_text_color))
                     R.styleable.ConsentForm_cf_confirmButtonTextColor -> styleValues.confirmButtonTextColor = getColor(index,
-                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_confirm_button_text_color))
+                            ContextCompat.getColor(this@ConsentFormBase, R.color.consent_form_confirm_button_text_color))
                     R.styleable.ConsentForm_cf_backgroundColor -> styleValues.backgroundColor = getColor(index,
-                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_background))
+                            ContextCompat.getColor(this@ConsentFormBase, R.color.consent_form_background))
                     R.styleable.ConsentForm_cf_dividerColor -> styleValues.dividerColor = getColor(index,
-                            ContextCompat.getColor(this@ConsentBase, R.color.consent_form_divider_color))
+                            ContextCompat.getColor(this@ConsentFormBase, R.color.consent_form_divider_color))
                 }
             }
         }
@@ -145,35 +145,22 @@ class ConsentBase(
     private fun applyFormStyle(styleValues: StyleValues?) {
         styleValues ?: return
 
-        if (styleValues.textColor != null) {
-            tvDescription.setTextColor(styleValues.textColor!!)
-        }
+        with(styleValues) {
+            textColor?.let { tvDescription.setTextColor(it) }
+            titleTextColor?.let { tvTitle.setTextColor(it) }
+            backgroundColor?.let { rootView.setBackgroundColor(it) }
+            confirmButtonTextColor?.let { bConfirm.setTextColor(it) }
 
-        if (styleValues.titleTextColor != null) {
-            tvTitle.setTextColor(styleValues.titleTextColor!!)
+            applyFormItemsStyle(this)
         }
-
-        if (styleValues.backgroundColor != null) {
-            rootView.setBackgroundColor(styleValues.backgroundColor!!)
-        }
-
-        if (styleValues.confirmButtonTextColor != null) {
-            bConfirm.setTextColor(styleValues.confirmButtonTextColor!!)
-        }
-
-        applyFormItemsStyle(styleValues)
     }
 
     private fun applyFormItemsStyle(styleValues: StyleValues) {
         (0 until lvConsentItemsRoot.childCount).map { lvConsentItemsRoot.getChildAt(it) }.forEach { view ->
             if (view is ConsentFormItemView) {
-                if (styleValues.textColor != null) {
-                    view.setTextColor(styleValues.textColor!!)
-                }
+                styleValues.textColor?.let { view.setTextColor(it) }
             } else { // divider
-                if (styleValues.dividerColor != null) {
-                    view.setBackgroundColor(styleValues.dividerColor!!)
-                }
+                styleValues.dividerColor?.let { view.setBackgroundColor(it) }
             }
         }
     }

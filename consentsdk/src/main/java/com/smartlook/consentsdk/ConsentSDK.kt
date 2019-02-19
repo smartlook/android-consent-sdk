@@ -15,7 +15,7 @@ import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialog
 import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialogFragment
 import com.smartlook.consentsdk.ui.consent.fragment.ConsentFormFragment
 
-class ConsentSDK(context: Context) : ContextWrapper(context) {
+class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContext) {
 
     companion object {
         private const val CONSENT_RESULT_STORED = "consent_result_stored"
@@ -174,6 +174,6 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      *
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      */
-    fun createConsenFromFragment(consentFormData: ConsentFormData) = ConsentFormFragment.newInstance(consentFormData)
+    fun createConsentFormFragment(consentFormData: ConsentFormData) = ConsentFormFragment.newInstance(consentFormData)
 
 }

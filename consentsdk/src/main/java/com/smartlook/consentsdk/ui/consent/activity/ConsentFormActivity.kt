@@ -3,15 +3,13 @@ package com.smartlook.consentsdk.ui.consent.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.UtilsHelper
-import com.smartlook.consentsdk.ui.consent.ConsentBase
-import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialogFragment
+import com.smartlook.consentsdk.ui.consent.ConsentFormBase
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
@@ -35,7 +33,7 @@ class ConsentFormActivity : AppCompatActivity() {
     }
 
     private lateinit var consentFormData: ConsentFormData
-    private lateinit var consentBase: ConsentBase
+    private lateinit var consentFormBase: ConsentFormBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,14 +44,14 @@ class ConsentFormActivity : AppCompatActivity() {
         consentFormData = ConsentFormData.constructFromBundle(intent.extras)
                 ?: throw InvalidParameterException()
 
-        consentBase = ConsentBase(
+        consentFormBase = ConsentFormBase(
                 consentFormData,
                 root,
                 createResultListener(),
                 ConsentHelper.restoreConsentResults(savedInstanceState),
                 styleId)
 
-        consentBase.displayConsent()
+        consentFormBase.displayConsent()
     }
 
     override fun onBackPressed() {
@@ -64,7 +62,7 @@ class ConsentFormActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        ConsentHelper.storeConsentResults(outState, consentBase.consentResults)
+        ConsentHelper.storeConsentResults(outState, consentFormBase.consentResults)
     }
 
     private fun hideToolbar() {
@@ -80,8 +78,8 @@ class ConsentFormActivity : AppCompatActivity() {
         }
     }
 
-    private fun createResultListener(): ConsentBase.ResultListener {
-        return object : ConsentBase.ResultListener {
+    private fun createResultListener(): ConsentFormBase.ResultListener {
+        return object : ConsentFormBase.ResultListener {
             override fun onResult(consentResults: HashMap<String, Boolean>) {
                 setResult(Activity.RESULT_OK, Intent().apply {
                     putExtra(ConsentHelper.CONSENT_RESULTS_EXTRA, consentResults)
