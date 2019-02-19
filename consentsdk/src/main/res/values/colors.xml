@@ -6,6 +6,6 @@
     <color name="consent_form_title_text_color">@android:color/black</color>
     <color name="consent_form_text_color">#303030</color>
     <color name="consent_form_divider_color">#DDDDDD</color>
-    <color name="consent_form_confirm_button_text_color">@android:color/black</color>
+    <color name="consent_form_confirm_button_text_color">@android:color/white</color>
 
 </resources>

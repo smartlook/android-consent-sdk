@@ -48,8 +48,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/consent_form_confirm_button_min_height"
-            android:textColor="@color/consent_form_confirm_button_text_color" />
+            android:minHeight="@dimen/consent_form_confirm_button_min_height" />
 
     </LinearLayout>
 

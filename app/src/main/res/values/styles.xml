@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DialogStyle" parent="Base.Theme.AppCompat.Dialog">
+    <style name="DialogStyle" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="cf_textColor">@android:color/black</item>
         <item name="cf_titleTextColor">@android:color/black</item>

@@ -32,6 +32,7 @@ class ConsentFormDialog : Dialog {
 
         this.consentFormData = consentFormData
         this.consentResultsListener = consentResultsListener
+        this.styleId = styleId
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
