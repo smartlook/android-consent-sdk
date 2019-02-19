@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/consent_form_background"
         android:orientation="vertical"
-        android:padding="@dimen/consent_dialog_padding">
+        android:padding="@dimen/consent_form_padding">
 
         <Space
             android:layout_width="match_parent"
@@ -24,8 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/consent_form_title_text_color"
-            android:textSize="@dimen/consent_dialog_title_text_size"
-            tools:text="Consent dialog title text" />
+            android:textSize="@dimen/consent_form_title_text_size" />
 
         <Space
             android:layout_width="match_parent"
@@ -38,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/consent_form_text_color"
-            android:textSize="12dp" />
+            android:textSize="@dimen/consent_form_text_size" />
 
         <Space
             android:layout_width="match_parent"
@@ -63,7 +62,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="60dp"
+            android:minHeight="@dimen/consent_form_confirm_button_min_height"
             tools:text="Confirm button" />
 
         <Space

@@ -14,6 +14,11 @@
 
     <style name="ActivityStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">#85318F</item>
+        <item name="cf_textColor">#318F69</item>
+        <item name="cf_titleTextColor">#8F5231</item>
+        <item name="cf_confirmButtonTextColor">#316E8F</item>
+        <item name="cf_backgroundColor">#378F31</item>
+        <item name="cf_dividerColor">#8F7831</item>
     </style>
 
 </resources>
