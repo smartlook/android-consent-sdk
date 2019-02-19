@@ -15,7 +15,7 @@
 
     <Space
         android:layout_width="@dimen/consent_item_horizontal_space"
-        android:layout_height="match_parent" />¨
+        android:layout_height="match_parent" />
 
     <ImageView
         android:id="@+id/consent_item_link"

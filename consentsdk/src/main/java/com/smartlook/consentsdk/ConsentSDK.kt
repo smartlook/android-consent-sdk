@@ -62,11 +62,12 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * Display consent form on Dialog. If you want to correctly persist on orientation change use
      * showConsentFormDialogFragment().
      *
+     * @param activity Calling Activity reference.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      * @param consentResultsListener Callback called on successful fill of consent form (@see ConsentResultsListener).
      */
-    fun showConsentFormDialog(consentFormData: ConsentFormData, consentResultsListener: ConsentResultsListener) =
-        ConsentDialog(this, consentFormData, consentResultsListener).show()
+    fun showConsentFormDialog(activity: Activity, consentFormData: ConsentFormData, consentResultsListener: ConsentResultsListener) =
+        ConsentDialog(activity, consentFormData, consentResultsListener).show()
 
     /**
      * Display consent form on DialogFragment.

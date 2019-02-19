@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:gravity="center"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/show_dialog"
-        android:text="Show Dialog"/>
+        android:text="@string/show_dialog"/>
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/show_dialog_fragment"
-        android:text="Show DialogFragment"/>
+        android:text="@string/show_dialogfragment"/>
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/start_activity"
-        android:text="Start activity"/>
+        android:text="@string/start_activity"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/consent_results"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
 </LinearLayout>

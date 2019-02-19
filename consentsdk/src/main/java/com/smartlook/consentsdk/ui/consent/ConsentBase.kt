@@ -10,6 +10,9 @@ import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
 import com.smartlook.consentsdk.listeners.ConsentItemListener
+import android.support.v4.content.ContextCompat
+import android.widget.FrameLayout
+import com.smartlook.consentsdk.helpers.UtilsHelper
 
 class ConsentBase(
     private val consentFormData: ConsentFormData,
@@ -61,11 +64,23 @@ class ConsentBase(
     // recycler view should have nested scroll
     private fun displayConsentItems() {
         consentFormData.consentFormItems.forEachIndexed { index, consentItem ->
+            addDivider()
             lvConsentItemsRoot.addView(ConsentItemView(this).apply {
                 setData(consentResults[keyOnIndex(index)] ?: false, consentItem)
                 registerListener(index, createConsentItemListener())
             })
         }
+        addDivider()
+    }
+
+    private fun addDivider() {
+        lvConsentItemsRoot.addView(View(this).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                UtilsHelper.convertDpToPixel(this@ConsentBase,1f).toInt()
+            )
+            background = ContextCompat.getDrawable(this@ConsentBase, R.color.consent_form_divider_color)
+        })
     }
 
     private fun handleConfirmButton() {
