@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
@@ -19,7 +20,6 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
         private const val CONSENT_RESULT_STORED = "consent_result_stored"
     }
 
-    //todo use private shared preffs
     private val sharedPreferences = SharedPreferencesHelper(this)
 
     /**
@@ -42,7 +42,8 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentKey Unique key identifying consent.
      * @param grantResult TRUE if consent was granted, FALSE if it was refused.
      */
-    fun saveConsentResult(consentKey: String, grantResult: Boolean) = sharedPreferences.saveBoolean(consentKey, grantResult)
+    fun saveConsentResult(consentKey: String, grantResult: Boolean) =
+        sharedPreferences.saveBoolean(consentKey, grantResult)
 
     /**
      * Check if user has seen and successfully filled consent form.
@@ -63,18 +64,44 @@ class ConsentSDK(context: Context) : ContextWrapper(context) {
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      * @param consentResultListener Callback called on successful fill of consent form (@see ConsentResultListener).
      */
-    //todo there is possible need to pass activity context :(
     fun showConsentFormDialog(consentFormData: ConsentFormData, consentResultListener: ConsentResultListener) =
-            ConsentDialog(applicationContext, consentFormData, consentResultListener).show()
+        ConsentDialog(this, consentFormData, consentResultListener).show()
 
-
+    /**
+     * Display consent form on DialogFragment.
+     *
+     * @param activity Calling Activity reference. This Activity needs to implement ConsentResultListener.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     */
     fun showConsentFormDialogFragment(activity: FragmentActivity, consentFormData: ConsentFormData) {
         ConsentDialogFragment.show(activity, consentFormData)
     }
 
-    fun startConsentFormActivity(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) =
-            ConsentActivity.start(activity, consentFormData, requestCode)
+    /**
+     * Display consent form on DialogFragment.
+     *
+     * @param fragment Calling Fragment reference. This Fragment needs to implement ConsentResultListener.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     */
+    fun showConsentFormDialogFragment(fragment: Fragment, consentFormData: ConsentFormData) {
+        ConsentDialogFragment.show(fragment, consentFormData)
+    }
 
+    /**
+     * Display consent form Activity.
+     *
+     * @param activity Calling Activity reference. This Activity needs to implement onActivityResult to get result.
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param requestCode Unique request code used in onActivityResult to determine corresponding result.
+     */
+    fun startConsentFormActivity(activity: Activity, consentFormData: ConsentFormData, requestCode: Int) =
+        ConsentActivity.start(activity, consentFormData, requestCode)
+
+    /**
+     * Parse out consentResults HashMap<consentKey, grantResult> from activity result.
+     *
+     * @param data Intent containing consentResults.
+     */
     fun parseOutConsentResults(data: Intent?): HashMap<String, Boolean> {
         ConsentHelper.restoreConsentResults(data?.extras).let {
             return it ?: throw UnknownError()
