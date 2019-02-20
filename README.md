@@ -1,10 +1,8 @@
 # Consent SDK for Android
 
-Obtaining explicit user consent with gathering analytics data in an app, or with processing user’s personal data is important part of establishing user trust and seamless user experience.
+Obtaining explicit user consent regarding the gathering analytics data in an app, or with processing user’s personal data is an important part of establishing user trust and seamless user experience.
 
-Although implementing some dialog to obtain user consents and store them for further reference seems pretty straightforward, digging into it reveals (as usual with “simple tasks”) many programming and design details that must be implemented, which are not the core functionality of your app.
-
-So why not use or reuse some ready-made SDK?
+Although implementing some form to obtain user consents and store them for further reference seems pretty straightforward, digging into it reveals (as usual with “simple tasks”) many programming and design details that must be implemented, which are not the core functionality of your app.
 
 <img src="screenshots/consent_form_activity.png" width="300"/> <img src="screenshots/consent_form_dialog.png" width="300"/> 
 
@@ -14,9 +12,9 @@ So why not use or reuse some ready-made SDK?
   - __Dialog__
   - __FragmentDialog__(persists orientation changes)
   - __Activity__
-- Stores consent grant results and provides access methods.
+- Stores consent results and provides access methods.
 
-## Instalation
+## Installation
 
 todo
 
@@ -28,7 +26,7 @@ Firstly you need to instantiate `ConsentSDK` with `applicationContext`.
 val consentSDK = ConsentSDK(applicationContext)
 ```
 
-This object is gonna be used for all interactions with ConsentSDK.
+This object is going to be used for all interactions with ConsentSDK.
 
 ### Consent form data
 
@@ -65,16 +63,16 @@ val consentFormData = ConsentFormData(
 
 ```
 
-Array `consentFormItems` represents consents we want user to grant us. Every item needs have:
+Array `consentFormItems` represents consents we want the user to grant us. Every item needs to have:
  - unique `consentKey` that represents it and can be used to obtain grant result for this consent.
- - `required` flag. If this flag is set to `true` user cannot successfully finish consent form without granting this consent.
- - `descriptionText` informing user about the consent.
- - `link` (optional) that lest user open web page (URL) with more info.
+ - `required` flag. If this flag is set to `true` user cannot successfully finish the consent form without granting this consent.
+ - `descriptionText` informing the user about the consent.
+ - `link` (optional) that lets the user open a web page (URL) with more info.
  
  Object `consentFormData` provides all needed data for displaying consent form.
 
 ### Showing consent form on `Dialog`
-Most simple and straight-forward way of displaying consent form is on `Dialog`. It has one __drawback__, this way we __cannot__ properly persist user data on orientation change. Use this if you have locked screen orientation.
+A most simple and straight-forward way of displaying consent form is on `Dialog`. It has one __drawback__, this way we __cannot__ properly persist user data on orientation change. Use this if you have locked screen orientation.
 
 ```
 consentSDK.showConsentFormDialog(consentFormData, object : ConsentResultsListener {
@@ -91,8 +89,8 @@ By using `DialogFragment` SDK can properly handle orientation changes.
 consentSDK.showConsentFormDialogFragment(<activity>/<fragment>, consentFormData)
 ```
 
-First parameter of `showConsentFormDialogFragment` accepts `Activity` or `Fragment` reference so you can call it from both.
-You calling `Activity` or `Fragment` __must__ implement ConsentResultsListener.
+The first parameter of `showConsentFormDialogFragment` accepts `Activity` or `Fragment` reference so you can call it from both.
+Your calling `Activity` or `Fragment` __must__ implement ConsentResultsListener.
 
 ```
 class SampleActivity : AppCompatActivity(), ConsentResultsListener {
@@ -120,20 +118,22 @@ class SampleActivity : AppCompatActivity() {
 
   ...
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == CONSENT_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                val consentResults = consentSDK.parseOutConsentResults(data)
-            }
-        }
-    }
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+      if (requestCode == CONSENT_REQUEST_CODE) {
+          if (resultCode == Activity.RESULT_OK) {
+              val consentResults = consentSDK.parseOutConsentResults(data)
+          } else {
+              // user didnt confirm the form (back press)
+          }
+      }
+  }
 }
 ```
 
 Consent form `Activity` is started "for a result" so to get a result you need to implement `onActivityResult` method in your `Activity`. 
 
 ### Creating conset form `Fragment`
-Method `createConsentFormFragment` lets you create Fragment with consent form. Example usage might look something like this:
+Method `createConsentFormFragment` lets you create `Fragment` with consent form. Example usage might look something like this:
 
 ```
 const val TAG = "unique_fragment_tag"
@@ -167,7 +167,7 @@ When user sucessfully finishes consent form you gonna get `consentResult`. It is
   - `false` consent was rejected.
 
 ### Are consent results stored?
-SDK method `areConsentResultsStored()` can be used to determine if user has already sucessfully granted all required consents.
+SDK method `areConsentResultsStored()` can be used to determine if the user has already successfully filled consent form and results were stored.
 
 ### Obtaining consent
 
@@ -186,7 +186,7 @@ If `consentResult` is:
 
 <img src="screenshots/consent_form_activity_styled.png" width="300"/> <img src="screenshots/consent_form_dialog_styled.png" width="300"/> 
 
-You can define custom `style` for consent form. All configurable attributes are listed in table below.
+You can define custom `style` for the consent form. All configurable attributes are listed in the table below.
 
 |         Attribute         |                    Description                   |
 |:-------------------------:|:------------------------------------------------:|
@@ -212,7 +212,7 @@ In `styles.xml` define custom Dialog style:
 </style>
 ```
 
-Then add the style to `showConsentFormDialog`/`showConsentFormDialogFragment` method like this:
+Then add the style reference to `showConsentFormDialog`/`showConsentFormDialogFragment` method like this:
 
 ```
 // Dialog
@@ -227,8 +227,8 @@ consentSDK.showConsentFormDialogFragment(this, consentFormData, R.style.DialogSt
 In `styles.xml` define custom Activity style:
 
 ```
-<style name="ActivityStyle" parent="Base.Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#35E6A5</item>
+<style name="ActivityStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorAccent">#21A76A</item>
     <item name="cf_textColor">#F4F4F4</item>
     <item name="cf_titleTextColor">#F4F4F4</item>
     <item name="cf_confirmButtonTextColor">#F4F4F4</item>
@@ -237,11 +237,29 @@ In `styles.xml` define custom Activity style:
 </style>
 ```
 
-Then add the style to `startConsentFormActivity` method like this:
+Then add the style reference to `startConsentFormActivity` method like this:
 
 ```
 consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
 ```
 
 ### Fragment
-Not implemented yet.
+
+In `styles.xml` define custom Fragment style:
+
+```
+<style name="FragmentStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorAccent">#21A76A</item>
+    <item name="cf_textColor">#F4F4F4</item>
+    <item name="cf_titleTextColor">#F4F4F4</item>
+    <item name="cf_confirmButtonTextColor">#F4F4F4</item>
+    <item name="cf_backgroundColor">#26262E</item>
+    <item name="cf_dividerColor">#F4F4F4</item>
+</style>
+```
+
+Then add the style reference to `startConsentFormActivity` method like this:
+
+```
+consentSDK.createConsentFormFragment(consentFormData, R.style.FragmentStyle)
+```
