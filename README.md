@@ -6,7 +6,7 @@ Although implementing some dialog to obtain user consents and store them for fur
 
 So why not use or reuse some ready-made SDK?
 
-<img src="screenshots/consent_activity.png" width="300"/> <img src="screenshots/consent_dialog.png" width="300"/> 
+<img src="screenshots/consent_form_activity.png" width="300"/> <img src="screenshots/consent_form_dialog.png" width="300"/> 
 
 ## Consent SDK main functionality
 
@@ -136,6 +136,10 @@ Consent form `Activity` is started "for a result" so to get a result you need to
 Method `createConsentFormFragment` lets you create Fragment with consent form. Example usage might look something like this:
 
 ```
+const val TAG = "unique_fragment_tag"
+
+...
+
 with(supportFragmentManager) {
     beginTransaction()
         .replace(R.id.fragment_placeholder, consentSDK.createConsentFormFragment(consentFormData), TAG)
@@ -147,7 +151,7 @@ with(supportFragmentManager) {
 `ConsentResultsListener` can be registered like this:
 
 ```
-val consentFormFragment = supportFragmentManager.findFragmentByTag(CONSENT_FORM_FRAGMENT_TAG) as ConsentFormFragment
+val consentFormFragment = supportFragmentManager.findFragmentByTag(TAG) as ConsentFormFragment
 consentFormFragment.registerConsentResultsListener(object : ConsentResultsListener {
             override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
                 // Consent form result here
@@ -179,5 +183,65 @@ If `consentResult` is:
 - `null` not defined.
 
 ## Styling
-todo
 
+<img src="screenshots/consent_form_activity_styled.png" width="300"/> <img src="screenshots/consent_form_dialog_styled.png" width="300"/> 
+
+You can define custom `style` for consent form. All configurable attributes are listed in table below.
+
+|         Attribute         |                    Description                   |
+|:-------------------------:|:------------------------------------------------:|
+| colorAccent               | Confirm button, link icons and `Switches` color. |
+| cf_textColor              | Description text and form item texts color.      |
+| cf_titleTextColor         | Title text color.                                |
+| cf_confirmButtonTextColor | Confirm button text color.                       |
+| cf_backgroundColor        | Form background color.                           |
+| cf_dividerColor           | Form item list divider color.                    |
+
+### `Dialog`/`FragmentDialog` 
+
+In `styles.xml` define custom Dialog style:
+
+```
+<style name="DialogStyle" parent="Base.Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">#35E6A5</item>
+    <item name="cf_textColor">#F4F4F4</item>
+    <item name="cf_titleTextColor">#F4F4F4</item>
+    <item name="cf_confirmButtonTextColor">#F4F4F4</item>
+    <item name="cf_backgroundColor">#26262E</item>
+    <item name="cf_dividerColor">#F4F4F4</item>
+</style>
+```
+
+Then add the style to `showConsentFormDialog`/`showConsentFormDialogFragment` method like this:
+
+```
+// Dialog
+consentSDK.showConsentFormDialog(this, consentFormData, R.style.DialogStyle, listener)
+
+// DialogFragment
+consentSDK.showConsentFormDialogFragment(this, consentFormData, R.style.DialogStyle)
+```
+
+### `Activity`
+
+In `styles.xml` define custom Activity style:
+
+```
+<style name="ActivityStyle" parent="Base.Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">#35E6A5</item>
+    <item name="cf_textColor">#F4F4F4</item>
+    <item name="cf_titleTextColor">#F4F4F4</item>
+    <item name="cf_confirmButtonTextColor">#F4F4F4</item>
+    <item name="cf_backgroundColor">#26262E</item>
+    <item name="cf_dividerColor">#F4F4F4</item>
+</style>
+```
+
+Then add the style to `startConsentFormActivity` method like this:
+
+```
+consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
+```
+
+### Fragment
+Not implemented yet.
