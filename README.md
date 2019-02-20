@@ -212,7 +212,7 @@ In `styles.xml` define custom Dialog style:
 </style>
 ```
 
-Then add the style to `showConsentFormDialog`/`showConsentFormDialogFragment` method like this:
+Then add the style reference to `showConsentFormDialog`/`showConsentFormDialogFragment` method like this:
 
 ```
 // Dialog
@@ -227,8 +227,8 @@ consentSDK.showConsentFormDialogFragment(this, consentFormData, R.style.DialogSt
 In `styles.xml` define custom Activity style:
 
 ```
-<style name="ActivityStyle" parent="Base.Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#35E6A5</item>
+<style name="ActivityStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorAccent">#21A76A</item>
     <item name="cf_textColor">#F4F4F4</item>
     <item name="cf_titleTextColor">#F4F4F4</item>
     <item name="cf_confirmButtonTextColor">#F4F4F4</item>
@@ -237,11 +237,30 @@ In `styles.xml` define custom Activity style:
 </style>
 ```
 
-Then add the style to `startConsentFormActivity` method like this:
+Then add the style reference to `startConsentFormActivity` method like this:
 
 ```
 consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
 ```
 
 ### Fragment
-Not implemented yet.
+
+In `styles.xml` define custom Fragment style:
+
+```
+<style name="FragmentStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorAccent">#21A76A</item>
+    <item name="cf_textColor">#F4F4F4</item>
+    <item name="cf_titleTextColor">#F4F4F4</item>
+    <item name="cf_confirmButtonTextColor">#F4F4F4</item>
+    <item name="cf_backgroundColor">#26262E</item>
+    <item name="cf_dividerColor">#F4F4F4</item>
+</style>
+```
+
+Then add the style reference to `startConsentFormActivity` method like this:
+
+```
+consentSDK.createConsentFormFragment(consentFormData, R.style.FragmentStyle)
+```
+
