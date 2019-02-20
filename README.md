@@ -120,13 +120,15 @@ class SampleActivity : AppCompatActivity() {
 
   ...
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == CONSENT_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                val consentResults = consentSDK.parseOutConsentResults(data)
-            }
-        }
-    }
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+      if (requestCode == CONSENT_REQUEST_CODE) {
+          if (resultCode == Activity.RESULT_OK) {
+              val consentResults = consentSDK.parseOutConsentResults(data)
+          } else {
+              // user didnt confirm the form (back press)
+          }
+      }
+  }
 }
 ```
 
