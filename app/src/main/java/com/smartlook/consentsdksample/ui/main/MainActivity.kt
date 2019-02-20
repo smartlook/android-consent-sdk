@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleStartConsentActivity(consentFormData: ConsentFormData) {
         start_activity.setOnClickListener {
-            App.consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
+            App.consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE)
         }
     }
 
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleShowDialog(consentFormData: ConsentFormData) {
         show_dialog.setOnClickListener {
-            App.consentSDK.showConsentFormDialog(this, consentFormData, R.style.DialogStyle, object : ConsentResultsListener {
+            App.consentSDK.showConsentFormDialog(this, consentFormData, object : ConsentResultsListener {
                 override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
                     displayConsentResults(consentResults as HashMap<String, Boolean?>)
                 }
