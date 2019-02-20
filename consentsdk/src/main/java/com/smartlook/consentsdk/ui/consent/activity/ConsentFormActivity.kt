@@ -71,10 +71,8 @@ class ConsentFormActivity : AppCompatActivity() {
     }
 
     private fun handleStyle(): Int? {
-        return UtilsHelper.getStyleId(intent.extras).also {
-            if (it != null) {
+        return UtilsHelper.getStyleId(intent.extras)?.also {
                 setTheme(it)
-            }
         }
     }
 

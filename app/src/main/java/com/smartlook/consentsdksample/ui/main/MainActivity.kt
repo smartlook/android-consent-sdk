@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         show_fragment.setOnClickListener {
             with(supportFragmentManager) {
                 beginTransaction()
-                    .replace(R.id.fragment_placeholder, App.consentSDK.createConsentFormFragment(consentFormData), CONSENT_FORM_FRAGMENT_TAG)
+                    .replace(R.id.fragment_placeholder, App.consentSDK.createConsentFormFragment(consentFormData, R.style.ActivityStyle), CONSENT_FORM_FRAGMENT_TAG)
                     .commit()
                 executePendingTransactions()
             }

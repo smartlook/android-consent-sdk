@@ -111,10 +111,8 @@ class ConsentFormDialogFragment : DialogFragment() {
     }
 
     private fun handleStyle(): Int? {
-        return UtilsHelper.getStyleId(arguments).also {
-            if (it != null) {
+        return UtilsHelper.getStyleId(arguments)?.also {
                 setStyle(STYLE_NORMAL, it)
-            }
         }
     }
 

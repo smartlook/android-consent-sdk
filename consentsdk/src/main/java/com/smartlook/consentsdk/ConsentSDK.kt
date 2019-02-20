@@ -176,4 +176,13 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      */
     fun createConsentFormFragment(consentFormData: ConsentFormData) = ConsentFormFragment.newInstance(consentFormData)
 
+    /**
+     * Create instance of consent form Fragment. To register ConsentResultsListener you need to call
+     * registerConsentResultsListener().
+     *
+     * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     */
+    fun createConsentFormFragment(consentFormData: ConsentFormData,
+                                  styleId: Int) = ConsentFormFragment.newInstance(consentFormData, styleId)
+
 }
