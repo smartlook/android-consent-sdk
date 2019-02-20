@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleStartConsentActivity(consentFormData: ConsentFormData) {
         start_activity.setOnClickListener {
-            App.consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE)
+            App.consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
         }
     }
 

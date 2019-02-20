@@ -9,7 +9,7 @@
 
     <!-- Consent form data -->
     <string name="consent_form_title">Consent form</string>
-    <string name="consent_form_description">\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat,turpis at pulvinar vulputate, erat libero tristique tellus.\\n\\nFusce nibh. Duis viverra diam non justo. Proin in tellus sit amet nibh dignissim sagittis. Integer tempor. Pellentesque arcu.\\n\\nNam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.\"</string>
+    <string name="consent_form_description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat,turpis at pulvinar vulputate, erat libero tristique tellus.\n\nFusce nibh. Duis viverra diam non justo. Proin in tellus sit amet nibh dignissim sagittis. Integer tempor. Pellentesque arcu.\n\nNam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.</string>
     <string name="consent_form_confirm_button_text">This is my will</string>
 
     <!-- 1st consent -->
