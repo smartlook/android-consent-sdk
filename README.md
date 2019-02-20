@@ -1,10 +1,8 @@
 # Consent SDK for Android
 
-Obtaining explicit user consent with gathering analytics data in an app, or with processing user’s personal data is an important part of establishing user trust and seamless user experience.
+Obtaining explicit user consent regarding the gathering analytics data in an app, or with processing user’s personal data is an important part of establishing user trust and seamless user experience.
 
 Although implementing some form to obtain user consents and store them for further reference seems pretty straightforward, digging into it reveals (as usual with “simple tasks”) many programming and design details that must be implemented, which are not the core functionality of your app.
-
-So why not use or reuse some ready-made SDK?
 
 <img src="screenshots/consent_form_activity.png" width="300"/> <img src="screenshots/consent_form_dialog.png" width="300"/> 
 
@@ -16,7 +14,7 @@ So why not use or reuse some ready-made SDK?
   - __Activity__
 - Stores consent results and provides access methods.
 
-## Instalation
+## Installation
 
 todo
 
@@ -92,7 +90,7 @@ consentSDK.showConsentFormDialogFragment(<activity>/<fragment>, consentFormData)
 ```
 
 The first parameter of `showConsentFormDialogFragment` accepts `Activity` or `Fragment` reference so you can call it from both.
-You calling `Activity` or `Fragment` __must__ implement ConsentResultsListener.
+Your calling `Activity` or `Fragment` __must__ implement ConsentResultsListener.
 
 ```
 class SampleActivity : AppCompatActivity(), ConsentResultsListener {
