@@ -6,7 +6,7 @@ Although implementing some dialog to obtain user consents and store them for fur
 
 So why not use or reuse some ready-made SDK?
 
-<img src="screenshots/consent_activity.png" width="300"/> <img src="screenshots/consent_dialog.png" width="300"/> 
+<img src="screenshots/consent_form_activity.png" width="300"/> <img src="screenshots/consent_form_dialog.png" width="300"/> 
 
 ## Consent SDK main functionality
 
@@ -183,6 +183,9 @@ If `consentResult` is:
 - `null` not defined.
 
 ## Styling
+
+<img src="screenshots/consent_form_activity_styled.png" width="300"/> <img src="screenshots/consent_form_dialog_styled.png" width="300"/> 
+
 You can define custom `style` for consent form. All configurable attributes are listed in table below.
 
 |         Attribute         |                    Description                   |
@@ -239,3 +242,6 @@ Then add the style to `startConsentFormActivity` method like this:
 ```
 consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
 ```
+
+### Fragment
+Not implemented yet.
