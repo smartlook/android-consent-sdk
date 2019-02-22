@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.StyleRes
 import android.util.DisplayMetrics
 import android.view.View
 
@@ -32,8 +33,9 @@ object UtilsHelper {
         return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
+    @StyleRes
     fun getStyleId(arguments: Bundle?): Int? {
-        val styleId = arguments?.getInt(STYLE_ID_EXTRA)
+        @StyleRes val styleId = arguments?.getInt(STYLE_ID_EXTRA)
         return if (styleId == View.NO_ID) {
             null
         } else {

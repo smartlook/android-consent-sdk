@@ -35,7 +35,7 @@ class ConsentFormItemView : LinearLayout {
         consent_item_switch.text = consentFormItem.description
         consent_item_switch.isChecked = grantResult
 
-       UtilsHelper.hideViewIfNull(consentFormItem.link, consent_item_link)
+        UtilsHelper.hideViewIfNull(consentFormItem.link, consent_item_link)
         consent_item_link.setOnClickListener {
             UtilsHelper.openLink(context, consentFormItem.link ?: return@setOnClickListener)
         }

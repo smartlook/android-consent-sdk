@@ -2,25 +2,26 @@ package com.smartlook.consentsdk.ui.consent
 
 import android.content.ContextWrapper
 import android.support.annotation.ColorInt
+import android.support.annotation.StyleRes
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.smartlook.consentsdk.ConsentSDK
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
-import com.smartlook.consentsdk.listeners.ConsentItemListener
-import android.support.v4.content.ContextCompat
-import android.widget.FrameLayout
 import com.smartlook.consentsdk.helpers.UtilsHelper
+import com.smartlook.consentsdk.listeners.ConsentItemListener
 
 class ConsentFormBase(
         private val consentFormData: ConsentFormData,
         private val rootView: View,
         private val resultListener: ResultListener,
         consentResults: HashMap<String, Boolean>? = null,
-        private val styleId: Int? = null) : ContextWrapper(rootView.context) {
+        @StyleRes private val styleId: Int? = null) : ContextWrapper(rootView.context) {
 
     private val consentApi = ConsentSDK(this)
     var consentResults: HashMap<String, Boolean>

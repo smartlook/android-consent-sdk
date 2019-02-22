@@ -1,7 +1,7 @@
 package com.smartlook.consentsdk.ui.consent.fragment
 
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import android.support.annotation.StyleRes
 import android.support.v4.app.Fragment
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
@@ -13,14 +13,13 @@ import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.UtilsHelper
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.ConsentFormBase
-import com.smartlook.consentsdk.ui.consent.dialog.ConsentFormDialogFragment
 import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
 class ConsentFormFragment : Fragment() {
 
     companion object {
-        fun newInstance(consentFormData: ConsentFormData, styleId: Int? = null): ConsentFormFragment {
+        fun newInstance(consentFormData: ConsentFormData, @StyleRes styleId: Int? = null): ConsentFormFragment {
             return ConsentFormFragment().apply {
                 arguments = consentFormData.createBundle().apply {
                     putInt(UtilsHelper.STYLE_ID_EXTRA, styleId ?: View.NO_ID)
@@ -31,7 +30,7 @@ class ConsentFormFragment : Fragment() {
 
     private lateinit var consentFormBase: ConsentFormBase
     private var consentResultsListener: ConsentResultsListener? = null
-    private var styleId: Int? = null
+    @StyleRes private var styleId: Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 

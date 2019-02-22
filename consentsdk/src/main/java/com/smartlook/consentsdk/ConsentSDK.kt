@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.support.annotation.StyleRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import com.smartlook.consentsdk.data.ConsentFormData
@@ -45,7 +46,7 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      */
     fun saveConsentResult(consentKey: String,
                           grantResult: Boolean) =
-        sharedPreferences.saveBoolean(consentKey, grantResult)
+            sharedPreferences.saveBoolean(consentKey, grantResult)
 
     /**
      * Check if user has seen and successfully filled consent form.
@@ -70,7 +71,7 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
     fun showConsentFormDialog(activity: Activity,
                               consentFormData: ConsentFormData,
                               consentResultsListener: ConsentResultsListener) =
-        ConsentFormDialog(activity, consentFormData, consentResultsListener).show()
+            ConsentFormDialog(activity, consentFormData, consentResultsListener).show()
 
     /**
      * Display consent form on Dialog. If you want to correctly persist on orientation change use
@@ -79,10 +80,11 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      * @param activity Calling Activity reference.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      * @param consentResultsListener Callback called on successful fill of consent form (@see ConsentResultsListener).
+     * @param styleId Reference to style resource. Can be used to style Dialog.
      */
     fun showConsentFormDialog(activity: Activity,
                               consentFormData: ConsentFormData,
-                              styleId: Int,
+                              @StyleRes styleId: Int,
                               consentResultsListener: ConsentResultsListener) =
             ConsentFormDialog(activity, consentFormData, styleId, consentResultsListener).show()
 
@@ -102,10 +104,11 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      *
      * @param activity Calling Activity reference. This Activity needs to implement ConsentResultsListener.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param styleId Reference to style resource. Can be used to style DialogFragment.
      */
     fun showConsentFormDialogFragment(activity: FragmentActivity,
                                       consentFormData: ConsentFormData,
-                                      styleId: Int) {
+                                      @StyleRes styleId: Int) {
         ConsentFormDialogFragment.show(activity, consentFormData, styleId)
     }
 
@@ -125,10 +128,11 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      *
      * @param fragment Calling Fragment reference. This Fragment needs to implement ConsentResultsListener.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param styleId Reference to style resource. Can be used to style DialogFragment.
      */
     fun showConsentFormDialogFragment(fragment: Fragment,
                                       consentFormData: ConsentFormData,
-                                      styleId: Int) {
+                                      @StyleRes styleId: Int) {
         ConsentFormDialogFragment.show(fragment, consentFormData, styleId)
     }
 
@@ -142,7 +146,7 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
     fun startConsentFormActivity(activity: Activity,
                                  consentFormData: ConsentFormData,
                                  requestCode: Int) =
-        ConsentFormActivity.start(activity, consentFormData, requestCode)
+            ConsentFormActivity.start(activity, consentFormData, requestCode)
 
     /**
      * Display consent form Activity.
@@ -150,11 +154,12 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      * @param activity Calling Activity reference. This Activity needs to implement onActivityResult to get result.
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
      * @param requestCode Unique request code used in onActivityResult to determine corresponding result.
+     * @param styleId Reference to style resource. Can be used to style Activity.
      */
     fun startConsentFormActivity(activity: Activity,
                                  consentFormData: ConsentFormData,
                                  requestCode: Int,
-                                 styleId: Int) =
+                                 @StyleRes styleId: Int) =
             ConsentFormActivity.start(activity, consentFormData, requestCode, styleId)
 
     /**
@@ -181,8 +186,9 @@ class ConsentSDK(applicationContext: Context) : ContextWrapper(applicationContex
      * registerConsentResultsListener().
      *
      * @param consentFormData Data object containing all needed info display the form (@see ConsentFormData).
+     * @param styleId Reference to style resource. Can be used to style Fragment.
      */
     fun createConsentFormFragment(consentFormData: ConsentFormData,
-                                  styleId: Int) = ConsentFormFragment.newInstance(consentFormData, styleId)
+                                  @StyleRes styleId: Int) = ConsentFormFragment.newInstance(consentFormData, styleId)
 
 }

@@ -3,6 +3,7 @@ package com.smartlook.consentsdk.ui.consent.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.smartlook.consentsdk.R
@@ -20,7 +21,7 @@ class ConsentFormActivity : AppCompatActivity() {
         fun start(activity: Activity,
                   consentFormData: ConsentFormData,
                   requestCode: Int,
-                  styleId: Int? = null) {
+                  @StyleRes styleId: Int? = null) {
 
             val intent = Intent(activity, ConsentFormActivity::class.java).apply {
                 putExtras(consentFormData.createBundle().apply {
@@ -37,7 +38,7 @@ class ConsentFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val styleId = handleStyle()
+        @StyleRes val styleId = handleStyle()
         setContentView(R.layout.consent_activity)
         hideToolbar()
 
@@ -70,9 +71,10 @@ class ConsentFormActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    @StyleRes
     private fun handleStyle(): Int? {
         return UtilsHelper.getStyleId(intent.extras)?.also {
-                setTheme(it)
+            setTheme(it)
         }
     }
 

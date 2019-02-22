@@ -1,6 +1,7 @@
 package com.smartlook.consentsdk.ui.consent.dialog
 
 import android.os.Bundle
+import android.support.annotation.StyleRes
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -26,7 +27,7 @@ class ConsentFormDialogFragment : DialogFragment() {
         private const val CONSENT_DIALOG_FRAGMENT_TAG = "consent_dialog_fragment"
         private const val CONSENT_DIALOG_FRAGMENT_CALLER_TYPE = "consent_dialog_fragment_caller_type"
 
-        fun show(activity: FragmentActivity, consentFormData: ConsentFormData, styleId: Int? = null) {
+        fun show(activity: FragmentActivity, consentFormData: ConsentFormData, @StyleRes styleId: Int? = null) {
             val consentDialogFragment = ConsentFormDialogFragment().apply {
                 arguments = consentFormData.createBundle().apply {
                     putInt(CONSENT_DIALOG_FRAGMENT_CALLER_TYPE, CALLED_FROM_ACTIVITY)
@@ -37,7 +38,7 @@ class ConsentFormDialogFragment : DialogFragment() {
             consentDialogFragment.show(activity.supportFragmentManager, CONSENT_DIALOG_FRAGMENT_TAG)
         }
 
-        fun show(fragment: Fragment, consentFormData: ConsentFormData, styleId: Int? = null) {
+        fun show(fragment: Fragment, consentFormData: ConsentFormData, @StyleRes styleId: Int? = null) {
             val consentDialogFragment = ConsentFormDialogFragment().apply {
                 arguments = consentFormData.createBundle().apply {
                     putInt(CONSENT_DIALOG_FRAGMENT_CALLER_TYPE, CALLED_FROM_FRAGMENT)
@@ -51,6 +52,7 @@ class ConsentFormDialogFragment : DialogFragment() {
 
     private lateinit var consentFormBase: ConsentFormBase
     private lateinit var consentResultsListener: ConsentResultsListener
+    @StyleRes
     private var styleId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +69,8 @@ class ConsentFormDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val consentFormData = ConsentFormData.constructFromBundle(arguments) ?: throw InvalidParameterException()
+        val consentFormData = ConsentFormData.constructFromBundle(arguments)
+                ?: throw InvalidParameterException()
 
         consentFormBase = ConsentFormBase(
                 consentFormData,
@@ -110,9 +113,10 @@ class ConsentFormDialogFragment : DialogFragment() {
         }
     }
 
+    @StyleRes
     private fun handleStyle(): Int? {
         return UtilsHelper.getStyleId(arguments)?.also {
-                setStyle(STYLE_NORMAL, it)
+            setStyle(STYLE_NORMAL, it)
         }
     }
 

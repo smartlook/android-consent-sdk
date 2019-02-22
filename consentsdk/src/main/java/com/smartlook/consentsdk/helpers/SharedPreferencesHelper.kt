@@ -10,8 +10,7 @@ class SharedPreferencesHelper(context: Context) : ContextWrapper(context.applica
         private const val CONSENT_SDI_SHARED_PREFERENCES = "com.smartlook.consentsdk.sharedpreferences"
     }
 
-    private val sharedPreferences: SharedPreferences
-            = getSharedPreferences(CONSENT_SDI_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = getSharedPreferences(CONSENT_SDI_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
     fun saveBoolean(key: String, state: Boolean) {
         sharedPreferences.edit().putBoolean(key, state).apply()

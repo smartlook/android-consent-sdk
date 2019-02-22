@@ -2,15 +2,15 @@
 <resources>
 
     <declare-styleable name="ConsentForm">
-        
+
         <!-- Color attributes -->
         <attr name="colorAccent" />
         <attr name="cf_textColor" format="color" />
         <attr name="cf_titleTextColor" format="color" />
         <attr name="cf_confirmButtonTextColor" format="color" />
-        <attr name="cf_backgroundColor" format="color"/>
-        <attr name="cf_dividerColor" format="color"/>
-        
+        <attr name="cf_backgroundColor" format="color" />
+        <attr name="cf_dividerColor" format="color" />
+
     </declare-styleable>
 
 </resources>

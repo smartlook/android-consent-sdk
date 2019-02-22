@@ -3,6 +3,7 @@ package com.smartlook.consentsdk.ui.consent.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.StyleRes
 import android.view.Window
 import android.view.WindowManager
 import com.smartlook.consentsdk.R
@@ -15,7 +16,7 @@ class ConsentFormDialog : Dialog {
 
     private var consentFormData: ConsentFormData
     private var consentResultsListener: ConsentResultsListener
-    private var styleId: Int? = null
+    @StyleRes private var styleId: Int? = null
 
     constructor(context: Context,
                 consentFormData: ConsentFormData,
