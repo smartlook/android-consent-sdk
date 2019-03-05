@@ -15,8 +15,23 @@ Although implementing some form to obtain user consents and store them for furth
 - Stores consent results and provides access methods.
 
 ## Installation
+Add the following dependency in your app's build.gradle:
 
-todo
+```
+implementation 'com.smartlook:consent:1.0'
+```
+
+And add the following in your project's build.gradle:
+
+```
+allprojects {
+    repositories {
+        maven {
+            url "https://sdk.smartlook.com/android/release"
+        }
+    }
+}
+```
 
 ## How to use
 
