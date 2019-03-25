@@ -12,6 +12,7 @@ Although implementing some form to obtain user consents and store them for furth
   - __Dialog__
   - __FragmentDialog__(persists orientation changes)
   - __Activity__
+  - __Fragment__
 - Stores consent results and provides access methods.
 
 ## Installation
