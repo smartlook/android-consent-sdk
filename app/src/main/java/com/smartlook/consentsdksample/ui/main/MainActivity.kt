@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
+import com.smartlook.consentsdk.data.toConsentText
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.fragment.ConsentFormFragment
 import com.smartlook.consentsdksample.App
@@ -28,7 +29,15 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        prepareConsentFormData().let {
+        format_text.setOnCheckedChangeListener { _, isChecked ->
+            setConsentFormData(isChecked)
+        }
+
+        setConsentFormData(format_text.isChecked)
+    }
+
+    private fun setConsentFormData(formatText: Boolean) {
+        prepareConsentFormData(formatText).let {
             displayConsentResults(loadConsentResults(it.consentFormItems))
             handleShowDialog(it)
             handleShowFragmentDialog(it)
@@ -61,27 +70,39 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         }
     }
 
-    private fun prepareConsentFormData(): ConsentFormData {
+    private fun prepareConsentFormData(formatText: Boolean): ConsentFormData {
         return ConsentFormData(
-            titleText = getString(R.string.consent_form_title),
-            descriptionText = getString(R.string.consent_form_description),
-            confirmButtonText = getString(R.string.consent_form_confirm_button_text),
-            consentFormItems = prepareConsentFormItems()
+            titleText = getString(R.string.consent_form_title).toConsentText(),
+            descriptionText = if (formatText) {
+                getString(R.string.consent_form_description_formatted).fromHtml().toConsentText()
+            } else {
+                getString(R.string.consent_form_description).toConsentText()
+            },
+            confirmButtonText = getString(R.string.consent_form_confirm_button_text).toConsentText(),
+            consentFormItems = prepareConsentFormItems(formatText)
         )
     }
 
-    private fun prepareConsentFormItems(): Array<ConsentFormItem> {
+    private fun prepareConsentFormItems(formatText: Boolean): Array<ConsentFormItem> {
         return arrayOf(
             ConsentFormItem(
                 consentKey = CONSENT_1_KEY,
                 required = true,
-                description = getString(R.string.consent_1_description),
+                description = if (formatText) {
+                    getString(R.string.consent_1_description_formatted).fromHtml().toConsentText()
+                } else {
+                    getString(R.string.consent_1_description).toConsentText()
+                },
                 link = null
             ),
             ConsentFormItem(
                 consentKey = CONSENT_2_KEY,
                 required = false,
-                description = getString(R.string.consent_2_description),
+                description = if (formatText) {
+                    getString(R.string.consent_2_description_formatted).fromHtml().toConsentText()
+                } else {
+                    getString(R.string.consent_2_description).toConsentText()
+                },
                 link = getString(R.string.consent_2_link)
             )
         )
@@ -89,7 +110,12 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleStartConsentActivity(consentFormData: ConsentFormData) {
         start_activity.setOnClickListener {
-            App.consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
+            App.consentSDK.startConsentFormActivity(
+                this,
+                consentFormData,
+                CONSENT_REQUEST_CODE,
+                R.style.ActivityStyle
+            )
         }
     }
 
@@ -101,11 +127,14 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleShowDialog(consentFormData: ConsentFormData) {
         show_dialog.setOnClickListener {
-            App.consentSDK.showConsentFormDialog(this, consentFormData, object : ConsentResultsListener {
-                override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
-                    displayConsentResults(consentResults as HashMap<String, Boolean?>)
-                }
-            })
+            App.consentSDK.showConsentFormDialog(
+                this,
+                consentFormData,
+                object : ConsentResultsListener {
+                    override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
+                        displayConsentResults(consentResults as HashMap<String, Boolean?>)
+                    }
+                })
         }
     }
 
@@ -113,7 +142,14 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         show_fragment.setOnClickListener {
             with(supportFragmentManager) {
                 beginTransaction()
-                    .replace(R.id.fragment_placeholder, App.consentSDK.createConsentFormFragment(consentFormData, R.style.ActivityStyle), CONSENT_FORM_FRAGMENT_TAG)
+                    .replace(
+                        R.id.fragment_placeholder,
+                        App.consentSDK.createConsentFormFragment(
+                            consentFormData,
+                            R.style.ActivityStyle
+                        ),
+                        CONSENT_FORM_FRAGMENT_TAG
+                    )
                     .commit()
                 executePendingTransactions()
             }

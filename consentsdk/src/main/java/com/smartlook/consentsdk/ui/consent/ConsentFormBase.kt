@@ -61,9 +61,9 @@ class ConsentFormBase(
 
     private fun displayTexts() {
         with(consentFormData) {
-            tvTitle.text = titleText
-            tvDescription.text = descriptionText
-            bConfirm.text = confirmButtonText
+            tvTitle.text = titleText.formattedText
+            tvDescription.text = descriptionText.formattedText
+            bConfirm.text = confirmButtonText.formattedText
         }
     }
 

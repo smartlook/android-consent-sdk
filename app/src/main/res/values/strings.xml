@@ -2,6 +2,7 @@
     <string name="app_name">Consent SDK sample</string>
 
     <!-- MainActivity -->
+    <string name="format_text">format text</string>
     <string name="show_dialog">Show Dialog</string>
     <string name="show_dialogfragment">Show DialogFragment</string>
     <string name="start_activity">Start activity</string>
@@ -10,13 +11,16 @@
     <!-- Consent form data -->
     <string name="consent_form_title">Consent form</string>
     <string name="consent_form_description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat,turpis at pulvinar vulputate, erat libero tristique tellus.\n\nFusce nibh. Duis viverra diam non justo. Proin in tellus sit amet nibh dignissim sagittis. Integer tempor. Pellentesque arcu.\n\nNam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.</string>
+    <string name="consent_form_description_formatted"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat,turpis at pulvinar vulputate, erat libero tristique tellus.\n\n<u>Fusce nibh:</u> Duis viverra diam non justo. Proin in tellus sit amet nibh dignissim sagittis. Integer tempor. Pellentesque arcu.\n\n<i>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.</i>]]></string>
     <string name="consent_form_confirm_button_text">This is my will</string>
 
     <!-- 1st consent -->
     <string name="consent_1_description">Quisque tincidunt scelerisque libero. Praesent id justo in neque elementum ultrices.</string>
+    <string name="consent_1_description_formatted"><![CDATA[<b>Required</b> - <i>Quisque tincidunt scelerisque libero. Praesent id justo in neque elementum ultrices.</i>]]></string>
 
     <!-- 2nd consent -->
     <string name="consent_2_description">Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</string>
+    <string name="consent_2_description_formatted"><![CDATA[<b>Optional</b> - <i>Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</i>]]></string>
     <string name="consent_2_link">https://www.smartlook.com/</string>
 
 </resources>

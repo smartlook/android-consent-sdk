@@ -32,7 +32,7 @@ class ConsentFormItemView : LinearLayout {
     }
 
     fun setData(grantResult: Boolean, consentFormItem: ConsentFormItem) {
-        consent_item_switch.text = consentFormItem.description
+        consent_item_switch.text = consentFormItem.description.formattedText
         consent_item_switch.isChecked = grantResult
 
         UtilsHelper.hideViewIfNull(consentFormItem.link, consent_item_link)
