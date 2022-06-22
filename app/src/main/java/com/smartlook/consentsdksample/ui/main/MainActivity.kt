@@ -3,8 +3,8 @@ package com.smartlook.consentsdksample.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.data.ConsentFormItem
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
                 // consent form not filled successfully
             }
         }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun prepareConsentFormData(): ConsentFormData {

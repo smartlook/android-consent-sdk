@@ -1,13 +1,13 @@
 package com.smartlook.consentsdk.ui.consent.dialog
 
 import android.os.Bundle
-import android.support.annotation.StyleRes
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StyleRes
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper

@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.support.annotation.StyleRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.StyleRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.smartlook.consentsdk.data.ConsentFormData
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.SharedPreferencesHelper
