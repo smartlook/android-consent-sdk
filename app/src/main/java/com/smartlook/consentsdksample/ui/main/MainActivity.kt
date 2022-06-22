@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartlook.consentsdk.data.ConsentFormData
+import com.smartlook.consentsdk.data.ConsentFormDisplayOptions
 import com.smartlook.consentsdk.data.ConsentFormItem
 import com.smartlook.consentsdk.listeners.ConsentResultsListener
 import com.smartlook.consentsdk.ui.consent.fragment.ConsentFormFragment
@@ -24,10 +25,27 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         const val CONSENT_FORM_FRAGMENT_TAG = "consent_form_fragment"
     }
 
+    private var consentFormDisplayOptions: ConsentFormDisplayOptions = ConsentFormDisplayOptions()
+        set(value) {
+            field = value
+            updateData()
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        only_description_scrollable.isChecked =
+            consentFormDisplayOptions.consentFormDescriptionScrollingOnly
+        only_description_scrollable.setOnCheckedChangeListener { _, isChecked ->
+            consentFormDisplayOptions =
+                consentFormDisplayOptions.copy(consentFormDescriptionScrollingOnly = isChecked)
+        }
+
+        updateData()
+    }
+
+    private fun updateData() {
         prepareConsentFormData().let {
             displayConsentResults(loadConsentResults(it.consentFormItems))
             handleShowDialog(it)
@@ -36,6 +54,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
             handleShowFragment(it)
         }
     }
+
 
     private fun loadConsentResults(consentFormItems: Array<ConsentFormItem>): HashMap<String, Boolean?> {
         return hashMapOf<String, Boolean?>().apply {
@@ -90,23 +109,38 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
 
     private fun handleStartConsentActivity(consentFormData: ConsentFormData) {
         start_activity.setOnClickListener {
-            App.consentSDK.startConsentFormActivity(this, consentFormData, CONSENT_REQUEST_CODE, R.style.ActivityStyle)
+            App.consentSDK.startConsentFormActivity(
+                this,
+                consentFormData = consentFormData,
+                consentFormDisplayOptions = consentFormDisplayOptions,
+                requestCode = CONSENT_REQUEST_CODE,
+                styleId = R.style.ActivityStyle
+            )
         }
     }
 
     private fun handleShowFragmentDialog(consentFormData: ConsentFormData) {
         show_dialog_fragment.setOnClickListener {
-            App.consentSDK.showConsentFormDialogFragment(this, consentFormData, R.style.DialogStyle)
+            App.consentSDK.showConsentFormDialogFragment(
+                this,
+                consentFormData = consentFormData,
+                consentFormDisplayOptions = consentFormDisplayOptions,
+                styleId = R.style.DialogStyle
+            )
         }
     }
 
     private fun handleShowDialog(consentFormData: ConsentFormData) {
         show_dialog.setOnClickListener {
-            App.consentSDK.showConsentFormDialog(this, consentFormData, object : ConsentResultsListener {
-                override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
-                    displayConsentResults(consentResults as HashMap<String, Boolean?>)
-                }
-            })
+            App.consentSDK.showConsentFormDialog(
+                this,
+                consentFormData = consentFormData,
+                consentFormDisplayOptions = consentFormDisplayOptions,
+                consentResultsListener = object : ConsentResultsListener {
+                    override fun onConsentResults(consentResults: HashMap<String, Boolean>) {
+                        displayConsentResults(consentResults as HashMap<String, Boolean?>)
+                    }
+                })
         }
     }
 
@@ -114,7 +148,13 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         show_fragment.setOnClickListener {
             with(supportFragmentManager) {
                 beginTransaction()
-                    .replace(R.id.fragment_placeholder, App.consentSDK.createConsentFormFragment(consentFormData, R.style.ActivityStyle), CONSENT_FORM_FRAGMENT_TAG)
+                    .replace(
+                        R.id.fragment_placeholder, App.consentSDK.createConsentFormFragment(
+                            consentFormData = consentFormData,
+                            consentFormDisplayOptions = consentFormDisplayOptions,
+                            styleId = R.style.ActivityStyle
+                        ), CONSENT_FORM_FRAGMENT_TAG
+                    )
                     .commit()
                 executePendingTransactions()
             }
@@ -147,7 +187,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
         with(consent_results) {
             hasFixedSize()
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = ConsentResultsAdapter(context!!, consentResults)
+            adapter = ConsentResultsAdapter(context, consentResults)
         }
     }
 }

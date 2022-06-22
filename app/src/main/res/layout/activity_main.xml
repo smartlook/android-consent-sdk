@@ -18,6 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/only_description_scrollable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/only_description_scrollable"/>
+
         <Button
             android:id="@+id/show_dialog"
             style="@style/Widget.AppCompat.Button.Colored"
