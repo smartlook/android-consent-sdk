@@ -89,8 +89,8 @@ Array `consentFormItems` represents consents we want the user to grant us. Every
 
 ### Consent form display options
 
-**Optionally** you can customize the display options for you consent form dialog/dialogfragment/fragment/activity by passing a `ConsentFormDisplayOptions` object in your showConsentForm function call.<br><br>
-Until now there is only the option to decide by setting the `consentFormDescriptionScrollingOnly` flag, if you want the whole layout scrollable or only title & description.<br>
+**Optionally** you can customize the display options for your consent form dialog/dialogfragment/fragment/activity by passing a `ConsentFormDisplayOptions` object into your showConsentForm function call.<br><br>
+With the `consentFormDescriptionScrollingOnly` flag, you can make the whole layout scrollable or only title & description.<br>
 By default `consentFormDescriptionScrollingOnly` is set to `true`.<br>
 
 Usage example:
