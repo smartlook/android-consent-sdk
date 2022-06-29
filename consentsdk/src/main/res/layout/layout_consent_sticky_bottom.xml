@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/consent_form_background"
+    android:orientation="vertical"
+    android:padding="@dimen/consent_form_padding">
+
+    <ScrollView
+        android:id="@+id/consent_description_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:layout_marginBottom="@dimen/consent_form_vertical_space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/consent_items_root">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/consent_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/consent_form_vertical_space"
+                android:textColor="@color/consent_form_title_text_color"
+                android:textSize="@dimen/consent_form_title_text_size"
+                tools:text="CONSENT TITLE" />
+
+            <TextView
+                android:id="@+id/consent_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/consent_form_text_color"
+                android:textSize="@dimen/consent_form_text_size"
+                tools:text="Consent occurs when one person voluntarily agrees to the proposal or desires of another.[1] It is a term of common speech, with specific definitions as used in such fields as the law, medicine, research, and sexual relationships. Consent as understood in specific contexts may differ from its everyday meaning. For example, a person with a mental disorder, a low mental age, or under the legal age of sexual consent may willingly engage in a sexual act that still fails to meet the legal threshold for consent as defined by applicable law.Consent occurs when one person voluntarily agrees to the proposal or desires of another.[1] It is a term of common speech, with specific definitions as used in such fields as the law, medicine, research, and sexual relationships. Consent as understood in specific contexts may differ from its everyday meaning. For example, a person with a mental disorder, a low mental age, or under the legal age of sexual consent may willingly engage in a sexual act that still fails to meet the legal threshold for consent as defined by applicable law.Consent occurs when one person voluntarily agrees to the proposal or desires of another.[1] It is a term of common speech, with specific definitions as used in such fields as the law, medicine, research, and sexual relationships. Consent as understood in specific contexts may differ from its everyday meaning. For example, a person with a mental disorder, a low mental age, or under the legal age of sexual consent may willingly engage in a sexual act that still fails to meet the legal threshold for consent as defined by applicable law.Consent occurs when one person voluntarily agrees to the proposal or desires of another.[1] It is a term of common speech, with specific definitions as used in such fields as the law, medicine, research, and sexual relationships. Consent as understood in specific contexts may differ from its everyday meaning. For example, a person with a mental disorder, a low mental age, or under the legal age of sexual consent may willingly engage in a sexual act that still fails to meet the legal threshold for consent as defined by applicable law.Consent occurs when one person voluntarily agrees to the proposal or desires of another.[1] It is a term of common speech, with specific definitions as used in such fields as the law, medicine, research, and sexual relationships. Consent as understood in specific contexts may differ from its everyday meaning. For example, a person with a mental disorder, a low mental age, or under the legal age of sexual consent may willingly engage in a sexual act that still fails to meet the legal threshold for consent as defined by applicable law.Consent occurs when one person voluntarily agrees to the proposal or desires of another.[1] It is a term of common speech, with specific definitions as used in such fields as the law, medicine, research, and sexual relationships. Consent as understood in specific contexts may differ from its everyday meaning. For example, a person with a mental disorder, a low mental age, or under the legal age of sexual consent may willingly engage in a sexual act that still fails to meet the legal threshold for consent as defined by applicable law." />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="consent_items_root"/>
+
+    <LinearLayout
+        android:id="@+id/consent_items_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/consent_form_vertical_space"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/consent_confirm_button"/>
+
+    <Button
+        android:id="@+id/consent_confirm_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/consent_form_confirm_button_min_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

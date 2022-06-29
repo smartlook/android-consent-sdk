@@ -22,5 +22,6 @@
     <string name="consent_2_description">Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</string>
     <string name="consent_2_description_formatted"><![CDATA[<b>Optional</b> - <i>Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</i>]]></string>
     <string name="consent_2_link">https://www.smartlook.com/</string>
+    <string name="only_description_scrollable">Only description scrollable</string>
 
 </resources>

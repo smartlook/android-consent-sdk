@@ -3,15 +3,15 @@ package com.smartlook.consentsdk.ui.consent.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StyleRes
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatActivity
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
+import com.smartlook.consentsdk.data.ConsentFormDisplayOptions
 import com.smartlook.consentsdk.helpers.ConsentHelper
 import com.smartlook.consentsdk.helpers.UtilsHelper
 import com.smartlook.consentsdk.ui.consent.ConsentFormBase
-import kotlinx.android.synthetic.main.consent_dialog.*
 import java.security.InvalidParameterException
 
 class ConsentFormActivity : AppCompatActivity() {
@@ -20,13 +20,15 @@ class ConsentFormActivity : AppCompatActivity() {
 
         fun start(activity: Activity,
                   consentFormData: ConsentFormData,
+                  consentFormDisplayOptions: ConsentFormDisplayOptions,
                   requestCode: Int,
                   @StyleRes styleId: Int? = null) {
 
             val intent = Intent(activity, ConsentFormActivity::class.java).apply {
-                putExtras(consentFormData.createBundle().apply {
+                val bundle = consentFormData.createBundle().apply {
                     putInt(UtilsHelper.STYLE_ID_EXTRA, styleId ?: View.NO_ID)
-                })
+                }
+                putExtras(consentFormDisplayOptions.saveToBundle(bundle))
             }
 
             activity.startActivityForResult(intent, requestCode)
@@ -35,15 +37,32 @@ class ConsentFormActivity : AppCompatActivity() {
 
     private lateinit var consentFormData: ConsentFormData
     private lateinit var consentFormBase: ConsentFormBase
+    private lateinit var consentFormDisplayOptions: ConsentFormDisplayOptions
+
+    private lateinit var root: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         @StyleRes val styleId = handleStyle()
-        setContentView(R.layout.consent_activity)
+
+        consentFormDisplayOptions = ConsentFormDisplayOptions.constructFromBundle(intent.extras)
+            ?: throw InvalidParameterException()
+
+        val layout = if (consentFormDisplayOptions.consentFormDescriptionScrollingOnly) {
+            R.layout.layout_consent_sticky_bottom
+        } else {
+            R.layout.layout_consent
+        }
+
+        setContentView(layout)
         hideToolbar()
+
+        root = findViewById(R.id.root)
 
         consentFormData = ConsentFormData.constructFromBundle(intent.extras)
                 ?: throw InvalidParameterException()
+
 
         consentFormBase = ConsentFormBase(
                 consentFormData,
