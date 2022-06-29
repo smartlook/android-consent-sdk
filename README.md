@@ -60,21 +60,21 @@ val consentFormItems = arrayOf(
     ConsentFormItem(
         consentKey = CONSENT_1_KEY,
         required = true,
-        description = getString(R.string.consent_1_description),
+        description = getString(R.string.consent_1_description).toConsentText(),
         link = null
     ),
     ConsentFormItem(
         consentKey = CONSENT_2_KEY,
         required = false,
-        description = getString(R.string.consent_2_description),
+        description = getString(R.string.consent_2_description).toConsentText(),
         link = getString(R.string.consent_2_link)
     )
 )
 
 val consentFormData = ConsentFormData(
-    titleText = getString(R.string.consent_form_title),
-    descriptionText = getString(R.string.consent_form_description),
-    confirmButtonText = getString(R.string.consent_form_confirm_button_text),
+    titleText = getString(R.string.consent_form_title).toConsentText(),
+    descriptionText = getString(R.string.consent_form_description).toConsentText(),
+    confirmButtonText = getString(R.string.consent_form_confirm_button_text).toConsentText(),
     consentFormItems = consentFormItems)
 
 ```
@@ -86,6 +86,35 @@ Array `consentFormItems` represents consents we want the user to grant us. Every
  - `link` (optional) that lets the user open a web page (URL) with more info.
  
  Object `consentFormData` provides all needed data for displaying consent form.
+ 
+
+### Format texts
+
+To format displayed texts, the data classes `ConsentFormData` and `ConsentFormItem` use the wrapper class `ConsentText` to provide the display texts as `String` or `Spanned`.
+
+#### String to ConsentText
+
+```
+val consentFormDescription = getString(R.string.consent_form_description)
+
+val consentFormDescriptionText = ConsentText(consentFormDescription)
+val consentFormDescriptionText = consentFormDescription.toConsentText()
+```
+
+#### Spanned to ConsentText
+
+```
+val spannable = SpannableString("Required\nnecessary cookies").apply {
+  setSpan(
+    StyleSpan(BOLD),
+    0, 8,
+    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+  )
+}
+val consentDescription = ConsentText(spannable)
+val consentDescription = spannable.toConsentText()
+```
+
 
 ### Consent form display options
 

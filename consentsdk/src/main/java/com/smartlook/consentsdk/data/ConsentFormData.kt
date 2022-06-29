@@ -3,9 +3,9 @@ package com.smartlook.consentsdk.data
 import android.os.Bundle
 import java.io.Serializable
 
-data class ConsentFormData(val titleText: String,
-                           val descriptionText: String,
-                           val confirmButtonText: String,
+data class ConsentFormData(val titleText: ConsentText,
+                           val descriptionText: ConsentText,
+                           val confirmButtonText: ConsentText,
                            val consentFormItems: Array<ConsentFormItem>) : Serializable {
 
     companion object {

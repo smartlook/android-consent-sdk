@@ -19,6 +19,12 @@
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/format_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/format_text"/>
+
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/only_description_scrollable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -2,6 +2,7 @@
     <string name="app_name">Consent SDK sample</string>
 
     <!-- MainActivity -->
+    <string name="format_text">Format text</string>
     <string name="show_dialog">Show Dialog</string>
     <string name="show_dialogfragment">Show DialogFragment</string>
     <string name="start_activity">Start activity</string>
@@ -9,30 +10,17 @@
 
     <!-- Consent form data -->
     <string name="consent_form_title">Consent form</string>
-    <string name="consent_form_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin scelerisque, sapien vitae ullamcorper laoreet, tellus nisi mattis dui, eget consectetur leo mi eu felis. Phasellus ullamcorper, ipsum sed dapibus molestie, erat ex dapibus quam, in fermentum sapien eros eget nibh. Curabitur suscipit ornare lorem ac volutpat. Fusce ipsum nisl, iaculis et lorem et, pretium lobortis nulla. Sed ac mollis erat. Praesent convallis mi quis mattis porttitor. Vivamus id facilisis sapien. Aliquam est urna, venenatis a risus quis, luctus egestas sem. Nulla nec enim quis nibh ultrices molestie. Proin sodales maximus eleifend. Praesent id nisl suscipit, fermentum est facilisis, accumsan magna. Curabitur enim diam, sodales vitae cursus at, aliquet in diam.
-
-In mollis, libero et fringilla laoreet, elit risus tempor massa, condimentum iaculis nisi diam sollicitudin tellus. Pellentesque sit amet ultricies arcu, nec consectetur quam. Nam imperdiet imperdiet nisi, ac scelerisque purus hendrerit eu. Cras varius metus sed massa bibendum pellentesque. Nulla tristique lectus eget scelerisque placerat. Sed nec diam at turpis lacinia ullamcorper. Ut posuere laoreet lorem. In accumsan molestie diam vel fermentum. Curabitur risus odio, maximus quis lectus accumsan, fringilla maximus libero. Donec gravida leo a finibus blandit. Integer ac lectus eu nunc auctor rutrum. Aliquam blandit sit amet nisi sit amet condimentum.
-
-Maecenas nec aliquet sem, ut blandit nunc. Aenean sed lacinia augue. Nullam felis ligula, laoreet eget est non, congue tempus est. Proin vel consequat metus, et condimentum nisl. Phasellus suscipit a augue ut finibus. Quisque at metus libero. Mauris in scelerisque neque. Integer ac lobortis mi.
-
-Duis vulputate vitae mi non pharetra. Maecenas ullamcorper lectus justo, sit amet rhoncus velit sagittis vel. Pellentesque vitae lorem fermentum, tincidunt magna eu, accumsan lacus. Mauris rutrum elit eget magna lacinia aliquam. Quisque volutpat arcu ac arcu faucibus, nec porttitor ante scelerisque. Integer elementum tincidunt tempor. Aliquam rutrum, tortor vel eleifend egestas, sapien elit semper sapien, quis lobortis nunc mi vel libero. Donec tempor nibh et scelerisque molestie. Integer accumsan quam risus, et venenatis dui tincidunt ut. Aliquam fermentum urna sem, at tincidunt lectus venenatis non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla sed nulla sed felis pharetra tempor non eu ante. Nullam sollicitudin velit magna, vel facilisis urna placerat ac.
-
-In blandit vitae velit at rutrum. Quisque posuere quam placerat est euismod bibendum. Cras hendrerit egestas venenatis. Pellentesque ut velit feugiat quam lobortis sodales. Quisque quis pellentesque erat. Fusce facilisis molestie ligula nec interdum. Duis quis egestas turpis, sit amet commodo leo. Nulla vitae risus a ex posuere mattis. In sit amet efficitur tortor.
-
-Vestibulum pellentesque posuere urna, tempor venenatis nisl posuere a. Aenean eleifend nunc vitae lorem luctus, non tincidunt odio lacinia. Mauris aliquam aliquam faucibus. Aenean sed sem at tortor porttitor scelerisque et in dui. Nam pulvinar, nibh a interdum blandit, odio nisl aliquam metus, at luctus ipsum dui sit amet enim. Vivamus posuere lobortis euismod. Ut id interdum lacus. Donec suscipit ligula erat, et suscipit lorem condimentum eget. Aenean pharetra dapibus odio, vel interdum ante cursus vitae. Ut rhoncus iaculis libero, et bibendum purus elementum nec.
-
-Praesent fermentum, ante in mollis commodo, eros leo efficitur tortor, a molestie magna dui ut ipsum. Proin ultrices enim quis erat gravida malesuada. Pellentesque sit amet magna eget nisi gravida varius sed sit amet nisl. Vestibulum at ante a quam porttitor lacinia nec et nulla. Morbi posuere libero erat, laoreet porta risus ornare non. Morbi facilisis ex vitae semper convallis. Etiam scelerisque justo suscipit felis porta, ac dapibus nulla ullamcorper. Nunc quis sodales lectus. Fusce dignissim, orci a aliquet finibus, enim mauris malesuada tellus, at consectetur urna felis mollis dui. Proin sollicitudin ex mattis blandit convallis. Vivamus at urna vitae odio consequat bibendum sed id magna. Morbi nisi mi, sollicitudin quis diam in, tincidunt vestibulum ligula. Maecenas faucibus sapien ac libero lobortis pulvinar. Cras id odio ac leo pharetra scelerisque. Nunc ut sapien volutpat, tempor erat in, tempor augue. Sed condimentum, magna at malesuada tempor, odio dolor volutpat velit, non bibendum orci lorem et velit.
-
-Pellentesque nec justo a erat iaculis luctus vulputate eget neque. Donec eu lectus eu massa finibus commodo eget vitae enim. Sed bibendum pulvinar nunc in volutpat. Curabitur ac erat massa. Aenean vel egestas eros, eget porttitor libero. Aenean.
-
-</string>
+    <string name="consent_form_description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat,turpis at pulvinar vulputate, erat libero tristique tellus.\n\nFusce nibh. Duis viverra diam non justo. Proin in tellus sit amet nibh dignissim sagittis. Integer tempor. Pellentesque arcu.\n\nNam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.</string>
+    <string name="consent_form_description_formatted"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat,turpis at pulvinar vulputate, erat libero tristique tellus.\n\n<u>Fusce nibh:</u> Duis viverra diam non justo. Proin in tellus sit amet nibh dignissim sagittis. Integer tempor. Pellentesque arcu.\n\n<i>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.</i>]]></string>
     <string name="consent_form_confirm_button_text">This is my will</string>
 
     <!-- 1st consent -->
     <string name="consent_1_description">Quisque tincidunt scelerisque libero. Praesent id justo in neque elementum ultrices.</string>
+    <string name="consent_1_description_formatted"><![CDATA[<b>Required</b> - <i>Quisque tincidunt scelerisque libero. Praesent id justo in neque elementum ultrices.</i>]]></string>
 
     <!-- 2nd consent -->
     <string name="consent_2_description">Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</string>
+    <string name="consent_2_description_formatted"><![CDATA[<b>Optional</b> - <i>Curabitur vitae diam non enim vestibulum interdum. Fusce tellus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis.</i>]]></string>
     <string name="consent_2_link">https://www.smartlook.com/</string>
     <string name="only_description_scrollable">Only description scrollable</string>
 

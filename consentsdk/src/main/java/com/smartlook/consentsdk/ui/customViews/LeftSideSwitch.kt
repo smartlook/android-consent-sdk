@@ -1,6 +1,8 @@
 package com.smartlook.consentsdk.ui.customViews
 
 import android.content.Context
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +25,7 @@ class LeftSideSwitch : LinearLayout {
         initialize()
     }
 
-    var text: String = ""
+    var text: Spanned = SpannableStringBuilder("")
         set(value) {
             left_side_switch_text.text = value
             field = value
