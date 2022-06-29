@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), ConsentResultsListener {
     private var consentFormDisplayOptions: ConsentFormDisplayOptions = ConsentFormDisplayOptions()
         set(value) {
             field = value
-            updateData()
+            setConsentFormData(format_text.isChecked)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {

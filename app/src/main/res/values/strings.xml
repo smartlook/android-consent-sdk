@@ -2,7 +2,7 @@
     <string name="app_name">Consent SDK sample</string>
 
     <!-- MainActivity -->
-    <string name="format_text">format text</string>
+    <string name="format_text">Format text</string>
     <string name="show_dialog">Show Dialog</string>
     <string name="show_dialogfragment">Show DialogFragment</string>
     <string name="start_activity">Start activity</string>
