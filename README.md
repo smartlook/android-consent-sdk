@@ -87,6 +87,24 @@ Array `consentFormItems` represents consents we want the user to grant us. Every
  
  Object `consentFormData` provides all needed data for displaying consent form.
 
+### Consent form display options
+
+**Optionally** you can customize the display options for your consent form dialog/dialogfragment/fragment/activity by passing a `ConsentFormDisplayOptions` object into your showConsentForm function call.<br><br>
+With the `consentFormDescriptionScrollingOnly` flag, you can make the whole layout scrollable or only title & description.<br>
+By default `consentFormDescriptionScrollingOnly` is set to `true`.<br>
+
+Usage example:
+```
+val consentFormDisplayOptions = ConsentFormDisplayOptions(consentFormDescriptionScrollingOnly = false)
+
+consentSDK.showConsentFormDialogFragment(
+    this,
+    consentFormData = consentFormData,
+    consentFormDisplayOptions = consentFormDisplayOptions,
+    styleId = R.style.DialogStyle
+)
+```
+
 ### Showing consent form on `Dialog`
 A most simple and straight-forward way of displaying consent form is on `Dialog`. It has one __drawback__, this way we __cannot__ properly persist user data on orientation change. Use this if you have locked screen orientation.
 

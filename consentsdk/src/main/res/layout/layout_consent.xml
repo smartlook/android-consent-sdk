@@ -16,32 +16,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/consent_form_title_text_color"
-            android:textSize="@dimen/consent_form_title_text_size" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/consent_form_vertical_space" />
+            android:textSize="@dimen/consent_form_title_text_size"
+            android:layout_marginBottom="@dimen/consent_form_vertical_space"/>
 
         <TextView
             android:id="@+id/consent_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/consent_form_text_color"
-            android:textSize="@dimen/consent_form_text_size" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/consent_form_vertical_space" />
+            android:textSize="@dimen/consent_form_text_size"
+            android:layout_marginBottom="@dimen/consent_form_vertical_space" />
 
         <LinearLayout
             android:id="@+id/consent_items_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/consent_form_vertical_space" />
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/consent_form_vertical_space"/>
 
         <Button
             android:id="@+id/consent_confirm_button"

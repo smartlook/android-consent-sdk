@@ -1,14 +1,14 @@
 package com.smartlook.consentsdk.ui.consent
 
 import android.content.ContextWrapper
-import android.support.annotation.ColorInt
-import android.support.annotation.StyleRes
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.StyleRes
+import androidx.core.content.ContextCompat
 import com.smartlook.consentsdk.ConsentSDK
 import com.smartlook.consentsdk.R
 import com.smartlook.consentsdk.data.ConsentFormData
