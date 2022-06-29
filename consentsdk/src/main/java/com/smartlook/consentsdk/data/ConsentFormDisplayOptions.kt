@@ -3,6 +3,12 @@ package com.smartlook.consentsdk.data
 import android.os.Bundle
 import java.io.Serializable
 
+/**
+ *
+ * This class allows you to customize some looks and behaviours of your consent form
+ *
+ *@property consentFormDescriptionScrollingOnly flag, that makes the whole layout scrollable (true) or only title & description (false).
+ **/
 data class ConsentFormDisplayOptions(
     val consentFormDescriptionScrollingOnly: Boolean = true
 ) : Serializable {
