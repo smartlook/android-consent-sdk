@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 31
@@ -9,7 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -27,6 +28,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    publishing {
+        singleVariant("release") {
+            // if you don't want sources/javadoc, remove these lines
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -34,7 +42,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
 
 
@@ -45,3 +53,17 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'at.ramseyTA.consentSDK'
+                artifactId = 'consentSDK'
+                version = android.defaultConfig.versionName
+            }
+        }
+    }
+}
+
